@@ -159,3 +159,14 @@ CREATE INDEX airport_destination ON flight_segment (airport_destination_id);
 
 CREATE INDEX airport_departure ON flight_segment (airport_departure_id);
 
+
+Insert into airport values
+('MUC','Franz Josef Strauss','Munich','Germany'),
+('CDG','Charles de Gaulle International','Paris','France'),
+('TXL','Berlin-Tegel International','Berlin','Germany'),
+('MIA','Miami International','Miami','USA'),
+('LHR','London Heathrow','London','England'),
+('FRA','Frankfurt am Main International','Frankfurt','Germany'),
+('ATH','Eleftherios Venizelos International','Athen','Greece'),
+('FCO','Aeroporto di Roma-Fiumicino','Rome','Italy'),
+('DME','Domodedovo International','Moscow','Russia');
