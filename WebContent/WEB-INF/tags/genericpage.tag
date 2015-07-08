@@ -14,13 +14,14 @@
 
 <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="./resources/css/custom.css" rel="stylesheet">
+<link href="./resources/css/jquery.datetimepicker.css" rel="stylesheet">
 
 <script src="./resources/js/jquery-1.11.3.js"></script>
 <script src="./resources/js/bootstrap.min.js"></script>
 
+<script src="./resources/js/jquery.datetimepicker.js"></script>
+
 <script src="./resources/js/check-in.js"></script>
-
-
 </head>
 
 <body>
@@ -39,7 +40,19 @@
 				<ul class="nav navbar-nav">
 					<li><a href="./home.html">Home</a></li>
 					<li><a href="./sample">Sample</a></li>
-					<li><a href="./check_in">CheckIn</a></li>				
+					<li><a href="./check_in">CheckIn</a></li>
+<li role="presentation" class="dropdown"><a
+						class="dropdown-toggle" data-toggle="dropdown" href="#"
+						role="button" aria-haspopup="true" aria-expanded="false">
+							Insert <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="./airport.jsp">Airport</a></li>
+							<li><a href="./airline.jsp">Airline</a></li>
+							<li><a href="./airplane.jsp">Airplane</a></li>
+							<li><a href="./flight_segment.jsp">Flight Segment</a></li>
+
+						</ul></li>				
 				</ul>
 			</div>
 		</div>
