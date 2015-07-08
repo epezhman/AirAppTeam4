@@ -12,4 +12,12 @@
     <servlet-name>SampleServlet</servlet-name>
     <url-pattern>/sample</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CheckInServlet</servlet-name>
+    <servlet-class>de.tum.in.dbpra.CheckInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckInServlet</servlet-name>
+    <url-pattern>/check_in</url-pattern>
+  </servlet-mapping>
 </web-app>

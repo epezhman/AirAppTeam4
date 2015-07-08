@@ -72,6 +72,7 @@ CREATE TABLE flight_segment (
 
 CREATE TABLE ticket (
     ticket_id serial NOT NULL,
+    ticket_number text NOT NULL,
     issued_by text NOT NULL,
     issued_on timestamp without time zone NOT NULL,
     valid_from timestamp without time zone NOT NULL,
@@ -96,6 +97,7 @@ CREATE TABLE ticket_flight_mapper (
 
 CREATE TABLE boarding_pass (
     boarding_pass_id serial NOT NULL,
+    boarding_pass_number text NOT NULL,
     issued_by text NOT NULL,
     issued_on timestamp without time zone NOT NULL,
     special_service text,

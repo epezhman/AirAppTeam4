@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import de.tum.in.dbpra.model.bean.SampleContainerBean;
 import de.tum.in.dbpra.model.bean.SampleBean;
 
-public class SampleDAO extends AbstractDAO {
+public class CheckInDAO extends AbstractDAO {
 
-	public SampleContainerBean getSamples() throws SampleException, SQLException {
+	public SampleContainerBean getSamples() throws CheckInException, SQLException {
 	/*
 	 *  This Has been commented out because there is no proper database tables now, after creating the database and configuring the connection please write databse queris like this. 
 	 */
@@ -58,28 +58,14 @@ public class SampleDAO extends AbstractDAO {
 		
 		SampleContainerBean samples = new SampleContainerBean();
 		
-		SampleBean bean = new SampleBean();
-		bean.setId(1);
-		bean.setName("sample 1");
-		samples.setBean(bean);
-
-		bean = new SampleBean();
-		bean.setId(1);
-		bean.setName("sample 2");
-		samples.setBean(bean);
-
-		bean = new SampleBean();
-		bean.setId(1);
-		bean.setName("sample 3");
-		samples.setBean(bean);
-
+		
 		
 		return samples;
 	}
 
 	@SuppressWarnings("serial")
-	public static class SampleException extends Throwable {
-		SampleException(String message) {
+	public static class CheckInException extends Throwable {
+		CheckInException(String message) {
 			super(message);
 		}
 	}

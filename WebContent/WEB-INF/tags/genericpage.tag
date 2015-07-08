@@ -18,6 +18,9 @@
 <script src="./resources/js/jquery-1.11.3.js"></script>
 <script src="./resources/js/bootstrap.min.js"></script>
 
+<script src="./resources/js/check-in.js"></script>
+
+
 </head>
 
 <body>
@@ -36,6 +39,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="./home.html">Home</a></li>
 					<li><a href="./sample">Sample</a></li>
+					<li><a href="./check_in">CheckIn</a></li>				
 				</ul>
 			</div>
 		</div>
