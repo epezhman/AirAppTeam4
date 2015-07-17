@@ -1,11 +1,17 @@
 package de.tum.in.dbpra.model.dao;
 
 
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
 
 
 /**
@@ -23,13 +29,13 @@ import java.util.Date;
  * @throws SQLException
  */
 
-public abstract class ClearanceDAO extends AbstractDAO {
+public class ClearanceDAO extends AbstractDAO {
 
     public boolean giveClearance(String airport_id,Integer flight_controller_id, Integer flight_segment_id, Date clearance_time) throws SQLException{
     	
-    	String runwayQuery = "Select runway_log_id, occupy_date_time, flight_controller_id, runway_id, flight_segment_id " +
-    			"From runway_log rl, runway r" +
-    			"Where rl.runway_id=r.runway_id and r.airport_id='"+airport_id+"' and occupy_date_time = '"+clearance_time+"' Order by runway_id asc";
+    	String runwayQuery = "Select rl.runway_log_id, rl.occupy_date_time, rl.flight_controller_id, rl.runway_id, rl.flight_segment_id " +
+    			"From runway_log rl, runway r " +
+    			"Where rl.runway_id=r.runway_id and r.airport_id='"+airport_id+"' and rl.occupy_date_time = '"+clearance_time+"' Order by rl.runway_id asc";
     	String numberOfRunwaysQuery = "Select runway_id From runway Where airport_id = '"+airport_id+"' Order by runway_id asc";
     	String InsertClearance = "Insert Into runway_log Values (default,'"+clearance_time+"',"+flight_controller_id+",?,"+flight_segment_id+")";
     	
@@ -61,8 +67,9 @@ public abstract class ClearanceDAO extends AbstractDAO {
     				resultset2.beforeFirst();
     				int freeRunway=0;
     				for (int i=1;i<=k;i++){
-    					if(resultset2.getInt(4)!=i){
-    						freeRunway=i;		//Get the id of the free runway.
+    					if(!resultset2.next()){
+    						freeRunway=i;		//Get the smallest id of the free runways.
+    						break;
     					}
     				}
     				
@@ -72,7 +79,7 @@ public abstract class ClearanceDAO extends AbstractDAO {
     				
     				preparedStatementInsertClearance.setInt(1,freeRunway);
     				try {
-    					preparedStatementInsertClearance.executeUpdate();		//Insert Clearance into runway_log
+    					preparedStatementInsertClearance.executeUpdate();		//Insert Clearance into runway_log.
     					return true;
     				} catch (SQLException e){
 						e.printStackTrace();
