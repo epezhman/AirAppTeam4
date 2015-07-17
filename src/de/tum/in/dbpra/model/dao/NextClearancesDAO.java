@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,16 +28,16 @@ import java.util.List;
  * @throws SQLException
  */
 
-public abstract class NextClearancesDAO extends AbstractDAO {
+public class NextClearancesDAO extends AbstractDAO {
 
-    public List<Object> giveNextClearances(String airport_id,Integer flight_controller_id, Integer flight_segment_id, Timestamp clearance_time) throws SQLException{
+    public List<Object> giveNextClearances(String airport_id,Integer flight_controller_id, Integer flight_segment_id, Date clearance_time) throws SQLException, ParseException{
     	
     	
     	List<Object> list = new ArrayList<Object>();
-    	String runwayQuery = "Select runway_log_id, occupy_date_time, flight_controller_id, runway_id, flight_segment_id " +
-    			"From runway_log rl, runway r" +
+    	String runwayQuery = "Select rl.runway_id " +
+    			"From runway_log rl, runway r " +
     			"Where rl.runway_id=r.runway_id and r.airport_id='"+airport_id+"' and rl.runway_id not in "+
-    			"(Select runway_id From runway_log Where occupy_date_time = '?') Order by runway_id asc;";
+    			"(Select runway_id From runway_log Where occupy_date_time = ?) Group by rl.runway_id Order by rl.runway_id asc;";
     	
     	
     	try (Connection connection= getConnection()){
@@ -49,18 +51,30 @@ public abstract class NextClearancesDAO extends AbstractDAO {
     			
     			int m=-1;
     			for(int j=0;j<=6;j++){
-    				clearance_time=addMinutesToDate(5*j, clearance_time);
-    				preparedStatementRunwayQuery.setTimestamp(1, clearance_time);
+    				if(j==0){
+    				}
+    				else{
+    				clearance_time=addMinutesToDate(5, clearance_time);				//Add 5 minutes to the clearance_time
+    				}
+    				long time = clearance_time.getTime();
+    				Timestamp timestamp = new Timestamp(time);
+    				preparedStatementRunwayQuery.setTimestamp(1, timestamp);
+    				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");		//Right format for clearance_time.
     				
     				try (ResultSet resultset2 = preparedStatementRunwayQuery.executeQuery()){
     				
     					resultset2.beforeFirst();
     					int l=0;				
     					while(resultset2.next()){
-    						l=resultset2.getInt(4);				//Runway_id of the free runway.
+    						l=resultset2.getInt(1);				//Runway_id of the free runway.
     						m++;
-    						list.add(2*m, clearance_time);
-    						list.add(2*m+1,l);
+    						list.add(2*m,l);					//Add runway_id to the return-list.
+    						String clearance_time_in_string = sdf.format(clearance_time);
+    						clearance_time= sdf.parse(clearance_time_in_string);
+    						Timestamp timestamp2 = new java.sql.Timestamp(clearance_time.getTime());		//Convert clearance_time into right format.
+    						clearance_time=timestamp2;
+
+    						list.add(2*m+1, clearance_time);	//Add corresponding clearance_time to the return-list.
     					}
     					
     				
@@ -89,17 +103,17 @@ public abstract class NextClearancesDAO extends AbstractDAO {
      * 
      * @param minutes
      *            Number of minutes being added
-     * @param time
+     * @param clearance_time
      *            Timestamp to which the minutes are added
      * @return New timestamp where minutes are added
      */
     
-    private static Timestamp addMinutesToDate(int minutes, Timestamp time){
+    private static Date addMinutesToDate(int minutes, Date clearance_time){
         final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
 
-        long curTimeInMs = time.getTime();
+        long curTimeInMs = clearance_time.getTime();
         Date afterAddingMins = new Date(curTimeInMs + (minutes * ONE_MINUTE_IN_MILLIS));
-        return (Timestamp) afterAddingMins;
+        return afterAddingMins;
     }
 	
 }
