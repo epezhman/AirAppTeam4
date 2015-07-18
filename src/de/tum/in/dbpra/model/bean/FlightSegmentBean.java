@@ -9,6 +9,7 @@ public class FlightSegmentBean {
 	private int number_of_miles;
 	private Timestamp departure_time;
 	private Timestamp arrival_time;
+	private AirplaneBean airplane;
 	private AirlineBean airline;
 	private AirportBean airport_destination;
 	private AirportBean airport_departure;
@@ -53,6 +54,14 @@ public class FlightSegmentBean {
 		this.arrival_time = arrival_time;
 	}
 	
+	public AirplaneBean getAirplane() {
+		return airplane;
+	}
+
+	public void setAirplane(AirplaneBean airplane) {
+		this.airplane = airplane;
+	}
+
 	public AirlineBean getAirline() {
 		return airline;
 	}

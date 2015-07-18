@@ -113,7 +113,19 @@
                         </div>
                     </div>
 
-
+					   <div class="control-group">
+                        <label class="control-label">Airplane Type</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on"><i
+									class="icon-envelope"></i></span>
+                                <input type="text" class="input-xlarge"
+									id="airplane_type" name="airplane_type"
+									placeholder="airplane_type">
+                            </div>
+                        </div>
+                    </div>
+					
                     <div class="control-group">
                         <label class="control-label"></label>
                         <div class="controls">
@@ -175,6 +187,7 @@
                     required : true,
                     lettersonly : true
                 }
+                
             }
         
         });
@@ -191,8 +204,7 @@
                 var airline_id = $("#airline_id").val();
                 var airport_departure_id = $("#airport_departure_id").val();
                 var airport_destination_id = $("#airport_destination_id").val();
-                
-
+                              		
                 var flight_segment = new Object();
                 flight_segment.flight_segment_id = flight_segment_id;
                 flight_segment.duration_minutes = duration_minutes;
@@ -202,6 +214,9 @@
                 flight_segment.airline_id = airline_id;
                 flight_segment.airport_departure_id = airport_departure_id;
                 flight_segment.airport_destination_id = airport_destination_id;
+  				if($("#airplane_type").val() != null){
+                	flight_segment.airplane_type = $("#airplane_type").val();	
+                }
 
                 var mydata = JSON.stringify(flight_segment);
                 

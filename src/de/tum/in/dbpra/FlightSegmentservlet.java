@@ -14,25 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.AirlineBean;
 
+import de.tum.in.dbpra.model.bean.AirplaneBean;
 import de.tum.in.dbpra.model.bean.AirportBean;
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
 import de.tum.in.dbpra.model.dao.AirlineDAO;
 
+import de.tum.in.dbpra.model.dao.AirplaneDAO;
 import de.tum.in.dbpra.model.dao.AirportDAO;
-import de.tum.in.dbpra.model.dao.FlightsegmentDAO;
+import de.tum.in.dbpra.model.dao.FlightSegmentDAO;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @SuppressWarnings("serial")
-public class Flightsegmentservlet extends HttpServlet {
+public class FlightSegmentservlet extends HttpServlet {
 
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Flightsegmentservlet() {
+	public FlightSegmentservlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -67,8 +69,11 @@ public class Flightsegmentservlet extends HttpServlet {
 			AirportBean airport = new AirportBean();
 			AirportDAO airportdao = new AirportDAO();
 			
+			AirplaneBean airplane = new AirplaneBean();
+			AirplaneDAO airplanedao = new AirplaneDAO();
+			
 			FlightSegmentBean flight_segment = new FlightSegmentBean();
-			FlightsegmentDAO flightsegmentdao = new FlightsegmentDAO();
+			FlightSegmentDAO flightsegmentdao = new FlightSegmentDAO();
 			
 			flight_segment.setFlightSegmentId(rootObj.get("flight_segment_id").getAsInt());
 			flight_segment.setDurationMinutes(rootObj.get("duration_minutes").getAsInt());
@@ -112,10 +117,12 @@ public class Flightsegmentservlet extends HttpServlet {
 //			 inserting airline object into airplane
 			flight_segment.setAirportDestination(airport);
 			
-			airline.setAirlineId(rootObj.get("airline_id").getAsInt());
-			airlinedao.getAirlineByID(airline);
+			if(rootObj.get("airplane_type").getAsString()!=null){
+			airplane.setAirplaneType(rootObj.get("airplane_type").getAsString());
+			airplanedao.getAirplaneByType(airplane);
 //			 inserting airline object into airplane
-			flight_segment.setAirline(airline);
+			flight_segment.setAirplane(airplane);
+			}
 			
 			
 			flightsegmentdao.addflight_segment(flight_segment);

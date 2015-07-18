@@ -28,11 +28,11 @@
     <url-pattern>/airplane</url-pattern>
   </servlet-mapping>
    <servlet>
-    <servlet-name>Flightsegmentservlet</servlet-name>
-    <servlet-class>de.tum.in.dbpra.Flightsegmentservlet</servlet-class>
+    <servlet-name>FlightSegmentservlet</servlet-name>
+    <servlet-class>de.tum.in.dbpra.FlightSegmentservlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Flightsegmentservlet</servlet-name>
+    <servlet-name>FlightSegmentservlet</servlet-name>
     <url-pattern>/flight_segment</url-pattern>
   </servlet-mapping>
    <servlet>

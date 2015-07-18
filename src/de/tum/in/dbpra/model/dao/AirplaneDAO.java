@@ -2,10 +2,14 @@ package de.tum.in.dbpra.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
+import de.tum.in.dbpra.model.bean.AirlineBean;
 import de.tum.in.dbpra.model.bean.AirplaneBean;
+import de.tum.in.dbpra.model.dao.AirlineDAO.AirlineNotFoundException;
+import de.tum.in.dbpra.model.dao.AirportDAO.AirportNotFoundException;
 
 public class AirplaneDAO extends AbstractDAO {
 
@@ -31,6 +35,38 @@ public class AirplaneDAO extends AbstractDAO {
 
 	}
 
+	public AirplaneBean getAirplaneByType(AirplaneBean airplane) throws AirportNotFoundException, AirlineNotFoundException, SQLException{
+		String query="Select airplane_id, size_class, airplane_range, total_seats, airline_id from airplane where airplane_type = ?";
+		
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			preparedStatement.setString(1, airplane.getAirplaneType());
+			
+			try (ResultSet resultSet = preparedStatement.executeQuery();) {
+				if (resultSet.next()) {
+					airplane.setAirplaneId(resultSet.getInt(1));
+					airplane.setSizeClass(resultSet.getString(2));
+					
+					airplane.setAirplaneRange(resultSet.getInt(3));
+					airplane.setTotalSeats(resultSet.getInt(4));
+					AirlineBean airline = new AirlineBean();
+					AirlineDAO airlinedao = new AirlineDAO();
+					airline.setAirlineId(resultSet.getInt(5));
+					airplane.setAirline(airlinedao.getAirlineByID(airline));
+							
+				} 
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return airplane;
+		}
+	
 	/*@SuppressWarnings("serial")
 	public static class SampleException extends Throwable {
 		SampleException(String message) {
