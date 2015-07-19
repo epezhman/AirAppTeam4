@@ -52,6 +52,14 @@
 		var ticket = $('#ticketClass').val();
 		var isOneway = $('#oneway').is(':checked');
 		var noofPass = $('#noofPass').val();
+		
+		$('#one-flight-caption').text( from + ' --> ' + to );
+		$('#two-flight-caption').text( to + ' --> ' + from );
+		$('#one-flight-container').show();
+		if(!isOneway)
+			$('#two-flight-container').show();
+		else
+			$('#two-flight-container').hide();
 
 		var dataString = "from=" + from + "&to=" + to + "&fromDate=" + fromDate
 				+ "&toDate=" + toDate + "&ticketClass=" + ticketClass
@@ -80,6 +88,10 @@
 					if (arr.length != 0) {
 						displayFlights(arr);
 					}
+					else
+						{
+						$("#flights-continer").hide();
+						}
 				}
 			});
 			return false;
@@ -105,13 +117,23 @@
 
 	function displayFlights(arr) {
 
-		var tr, tableBody, table, trHeader, tdHeader, trFlightDetailsHeader;
+		var tr, tableBody_one, tableBody_two, table_one, table_two, trHeader, tdHeader, trFlightDetailsHeader;
 
-		table = document.getElementById("flight");
-		table.setAttribute("class", "table table-bordered");
-		deleteRow("flight");
-		tableBody = document.createElement('TBODY');
-		table.appendChild(tableBody);
+		table_one = document.getElementById("one-flight");
+		table_two = document.getElementById("two-flight");
+
+		table_one.setAttribute("class", "table table-bordered");
+		table_two.setAttribute("class", "table table-bordered");
+
+		deleteRow("one-flight");
+		deleteRow("two-flight");
+
+		tableBody_one = document.createElement('TBODY');
+		tableBody_two = document.createElement('TBODY');
+
+		table_one.appendChild(tableBody_one);
+		table_two.appendChild(tableBody_two);
+
 		$("#flights-continer").show();
 
 		for (var i = 0; i < arr.length; i++) {
@@ -124,6 +146,8 @@
 			airport_destination_city = arr[i].airport_destination.city;
 			airport_departure_name = arr[i].airport_departure.name;
 			airport_departure_city = arr[i].airport_departure.city;
+			flight_price = arr[i].price;
+			flight_number = arr[i].flight_number;
 
 			trHeader = document.createElement('TR');
 			tdHeader = document.createElement('TD');
@@ -169,10 +193,27 @@
 			tdAirplaneType = document.createElement('TD');
 			tdAirplaneType.appendChild(document.createTextNode(airplane_type));
 			tr.appendChild(tdAirplaneType);
+			
+			tdFlightNumber = document.createElement('TD');
+			tdFlightNumber.appendChild(document.createTextNode(flight_number));
+			tr.appendChild(tdFlightNumber);
+			
+			tdFlightPrice = document.createElement('TD');
+			tdFlightPrice.appendChild(document.createTextNode(flight_price + ' €'));
+			tr.appendChild(tdFlightPrice);
 
-			tableBody.appendChild(trHeader);
-			tableBody.appendChild(createFlightHeader(trFlightDetailsHeader));
-			tableBody.appendChild(tr);
+			if (arr[i].which_way == "1") {
+				tableBody_one.appendChild(trHeader);
+				tableBody_one
+						.appendChild(createFlightHeader(trFlightDetailsHeader));
+				tableBody_one.appendChild(tr);
+			} else {
+				tableBody_two.appendChild(trHeader);
+				tableBody_two
+						.appendChild(createFlightHeader(trFlightDetailsHeader));
+				tableBody_two.appendChild(tr);
+			}
+
 		}
 
 	}
@@ -181,7 +222,7 @@
 		trFlightDetailsHeader = document.createElement('TR');
 		var headerFlihgt = new Array();
 		headerFlihgt.push("", "Deaprt Time", "Arrival Time", "Depart Airport",
-				"Arrival Airport", "Airline", "Airplane");
+				"Arrival Airport", "Airline", "Airplane", "Flight Number", "Price");
 		for (var i = 0; i < headerFlihgt.length; i++) {
 			td = document.createElement('TD');
 			td.appendChild(document.createTextNode(headerFlihgt[i]));
@@ -354,12 +395,19 @@
 		</div>
 
 		<div style="display: none" id="flights-continer">
-			<table border='1' id="flight">
 
-			</table>
-			<table border='1' id="flight">
+			<div style="display: none" id="one-flight-container">
+				<p id="one-flight-caption"  class="bg-info" style="padding:10px"></p>
+				<table border='1' id="one-flight">
 
-			</table>
+				</table>
+			</div>
+			<div style="display: none" id="two-flight-container">
+				<p id="two-flight-caption"  class="bg-info" style="padding:10px"></p>
+				<table border='1' id="two-flight">
+
+				</table>
+			</div>
 			<button type="button" class="btn btn-primary"
 				onClick="callPassengerJSP()">Proceed</button>
 

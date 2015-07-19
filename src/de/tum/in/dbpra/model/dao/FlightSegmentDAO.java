@@ -85,7 +85,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 		.append(" where origin.city ='").append(to).append("')");
 
 		//query for retrieving conn flight from origin
-		query.append(" select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport ")
+		query.append(" select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport, flight_number, price ")
 		  .append(" ,ar.airline_name as airlinename,ap.airplane_type as airplanetype from flight_segment fs")
 		.append(" inner join airport target1 on fs.airport_destination_id = target1.airport_id")
 		.append(" inner join airport origin1 on fs.airport_departure_id = origin1.airport_id")
@@ -94,7 +94,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 		.append(" where origin1.city='").append(from).append("'")
 		.append(" AND target1.city= (select connection1.conn_city from connection1)")
 		.append(" AND (select departure_time::timestamp::date)  >= '").append(fromDate).append("'")
-		.append(" UNION select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport")
+		.append(" UNION select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport, flight_number, price")
 		.append(" ,ar.airline_name as airlinename,ap.airplane_type as airplanetype from flight_segment fs")
 		.append(" inner join airport target1 on fs.airport_destination_id = target1.airport_id")
 		.append(" inner join airport origin1 on fs.airport_departure_id = origin1.airport_id")
@@ -116,7 +116,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 			.append(" where origin.city ='").append(from).append("')");
 
 			//query for retrieving conn flight from origin
-			query.append(" select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport")
+			query.append(" select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport, flight_number, price")
 			.append(" ,ar.airline_name as airlinename,ap.airplane_type as airplanetype from flight_segment fs")
 			.append(" inner join airport target1 on fs.airport_destination_id = target1.airport_id")
 			.append(" inner join airport origin1 on fs.airport_departure_id = origin1.airport_id")
@@ -125,7 +125,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 			.append(" where origin1.city='").append(to).append("'")
 			.append(" AND target1.city= (select connection2.conn_city from connection2)")
 			.append(" AND (select departure_time::timestamp::date)  >= '").append(toDate).append("'")
-			.append(" UNION select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport")
+			.append(" UNION select  departure_time,arrival_time,origin1.city as departcity,target1.city as arrivalcity,origin1.name as departairport, target1.name as arrivalairport, flight_number, price")
 			.append(" ,ar.airline_name as airlinename,ap.airplane_type as airplanetype from flight_segment fs")
 			.append(" inner join airport target1 on fs.airport_destination_id = target1.airport_id")
 			.append(" inner join airport origin1 on fs.airport_departure_id = origin1.airport_id")
@@ -151,7 +151,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 			String noOfPass, String isOneway) {
 
 		StringBuilder query = new StringBuilder()
-		.append(" (select  departure_time,arrival_time,origin.city as departcity,target.city as arrivalcity,ar.airline_name as airlinename,ap.airplane_type as airplanetype")
+		.append(" (select  departure_time,arrival_time,origin.city as departcity,target.city as arrivalcity,ar.airline_name as airlinename,ap.airplane_type as airplanetype, flight_number, price")
 		.append(" ,origin.name as departairport, target.name as arrivalairport from flight_segment fs ")
 		.append(" inner join airport target on fs.airport_destination_id = target.airport_id" )
 		.append(" inner join airport origin on fs.airport_departure_id = origin.airport_id")
@@ -161,7 +161,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 		.append("  AND (select departure_time::timestamp::date)  >='").append(fromDate).append("' limit 7 )");
 
 		if (isOneway.equals("false")){
-			query.append(" UNION (select  departure_time,arrival_time,origin.city as departcity,target.city as arrivalcity,ar.airline_name as airlinename,ap.airplane_type as airplanetype")
+			query.append(" UNION (select  departure_time,arrival_time,origin.city as departcity,target.city as arrivalcity,ar.airline_name as airlinename,ap.airplane_type as airplanetype, flight_number, price")
 			.append(" ,origin.name as departairport, target.name as arrivalairport from flight_segment fs ")
 			.append(" inner join airport target on fs.airport_destination_id = target.airport_id" )
 			.append(" inner join airport origin on fs.airport_departure_id = origin.airport_id")
@@ -244,7 +244,10 @@ public class FlightSegmentDAO extends AbstractDAO {
 					airplane.setAirplaneType(rs.getString("airplanetype"));
 					flightSegmentBean.setAirplane(airplane);
 					
-					if(airportDeparture.getCity().toLowerCase().equals(from.toLowerCase()))
+					flightSegmentBean.setPrice(rs.getString("price"));
+					flightSegmentBean.setFlightNumber(rs.getString("flight_number"));
+					
+					if(airportDeparture.getCity().toLowerCase().equals(from.toLowerCase()) || airportDestination.getCity().toLowerCase().equals(to.toLowerCase()))
 						flightSegmentBean.setWhichWay(1);
 					else
 						flightSegmentBean.setWhichWay(2);

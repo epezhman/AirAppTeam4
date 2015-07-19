@@ -14,6 +14,9 @@ public class FlightSegmentBean {
 	private AirportBean airport_departure;
 	private AirplaneBean airplane;
 	
+	private String price;
+	private String flight_number;
+	
 	private int which_way;
 	private int group;
 
@@ -103,6 +106,22 @@ public class FlightSegmentBean {
 
 	public int getGroup() {
 		return group;
+	}
+	
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+	
+	public void setFlightNumber(String flight_number) {
+		this.flight_number = flight_number;
+	}
+
+	public String getFlightNumber() {
+		return flight_number;
 	}
 	
 }
