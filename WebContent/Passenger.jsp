@@ -25,7 +25,7 @@
 	  var address = $("#address").val();
 	  var nationality = $("#nationality").val();
 	  var gender = $('#gender').val();
-	  var passengerType = $('#passengerType');
+	  var passengerType = $('#passengerType').val();
 	  var phoneNumber = $('#phoneNumber').val();
 	  var country = $('#country').val();
 	  
@@ -54,8 +54,9 @@
 				cache: false,
 				success: function(responseObj) {
 					if (responseObj == 'true'){
-						var messageDiv = document.getElementById("message");
-						messageDiv.style.display = 'block';
+						/* var messageDiv = document.getElementById("message");
+						messageDiv.style.display = 'block'; */
+						window.location.href="ticket";
 					}
 				}
 			});
@@ -116,7 +117,7 @@
            	 	<tr>
           			<td><label>Passenger Type: </label><input id="passengerType"></td>
           	  		<td><label>Country</label>
-          			<select id="gender">
+          			<select id="country">
 	          			<%
 	          				String[] locales = Locale.getISOCountries();
 	          			    for (String countryCode : locales) {

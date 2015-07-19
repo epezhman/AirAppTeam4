@@ -51,4 +51,12 @@
     <servlet-name>CheckInServlet</servlet-name>
     <url-pattern>/check_in</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>TicketServlet</servlet-name>
+    <servlet-class>de.tum.in.dbpra.TicketServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TicketServlet</servlet-name>
+    <url-pattern>/ticket</url-pattern>
+  </servlet-mapping>
 </web-app>

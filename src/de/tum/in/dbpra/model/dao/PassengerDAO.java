@@ -2,6 +2,7 @@ package de.tum.in.dbpra.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.tum.in.dbpra.model.bean.PassengerBean;
@@ -49,5 +50,19 @@ public class PassengerDAO extends AbstractDAO {
 		return passengerBean;
 	}
 
+	public PassengerBean getPassengerID(PassengerBean passenger) throws SQLException{
+		String query ="Select passenger_id from passenger where first_name=? and last_name=?";
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			preparedStatement.setString(1, passenger.getFirstName());
+			preparedStatement.setString(2, passenger.getLastName());
+			try (ResultSet resultSet = preparedStatement.executeQuery();) {
+				if (resultSet.next()) {
+			passenger.setPassengerId(resultSet.getInt(1));
+				}
+		}
+		}
+		return passenger;
+	}
 }
 
