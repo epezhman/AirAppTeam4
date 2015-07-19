@@ -11,6 +11,7 @@ public class PassengerBean {
 	private String nationality;
 	private String passenger_type;
 	private String phone_number;
+	private String country;
 
 
 	public int getPassengerId() {
@@ -75,6 +76,14 @@ public class PassengerBean {
 
 	public void setPhoneNumber(String phone_number) {
 		this.phone_number = phone_number;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
 }

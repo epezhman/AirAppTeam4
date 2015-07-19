@@ -11,10 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
+import de.tum.in.dbpra.model.bean.PassengerBean;
 import de.tum.in.dbpra.model.dao.AirportDAO;
 import de.tum.in.dbpra.model.dao.FlightSegmentDAO;
 import de.tum.in.dbpra.model.dao.PassengerDAO;
@@ -40,9 +42,13 @@ public class PassengerServlet extends HttpServlet {
 		
 		PassengerDAO passengerDAO = new PassengerDAO();
 		boolean returnStatus= false;
+		PassengerBean passenger =null;
+		HttpSession session= request.getSession();
 		try {
-			returnStatus = passengerDAO.createPassenger(firstName, lastName, address, gender,
+			passenger = passengerDAO.createPassenger(firstName, lastName, address, gender,
 					nationality, passengerType, phoneNumber, country); 
+			session.setAttribute("passenger", passenger);
+			returnStatus = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
