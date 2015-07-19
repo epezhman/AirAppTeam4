@@ -31,6 +31,8 @@ CREATE TABLE airplane (
 );
 
 
+
+
 CREATE TABLE passenger (
     passenger_id serial NOT NULL,
     first_name text NOT NULL,
@@ -40,6 +42,7 @@ CREATE TABLE passenger (
     nationality text NOT NULL,
     passenger_type text NOT NULL,
     phone_number text NOT NULL,
+    country text NOT NULL,
     primary key (passenger_id)
 );
 
@@ -63,11 +66,14 @@ CREATE TABLE flight_segment (
     airline_id integer NOT NULL,
     airport_destination_id text NOT NULL,
     airport_departure_id text NOT NULL,
+    airplane_id integer NOT NULL,
     primary key (flight_segment_id),
     foreign key (airline_id) references airline (airline_id) ON UPDATE NO ACTION ON DELETE NO ACTION,
     foreign key (airport_destination_id) references airport (airport_id) ON UPDATE NO ACTION ON DELETE NO ACTION,
-    foreign key (airport_departure_id) references airport (airport_id) ON UPDATE NO ACTION ON DELETE NO ACTION
+    foreign key (airport_departure_id) references airport (airport_id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    foreign key (airplane_id) references airplane (airplane_id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+
 
 
 CREATE TABLE ticket (
@@ -172,3 +178,30 @@ Insert into airport values
 ('ATH','Eleftherios Venizelos International','Athen','Greece'),
 ('FCO','Aeroporto di Roma-Fiumicino','Rome','Italy'),
 ('DME','Domodedovo International','Moscow','Russia');
+
+Insert into airline values
+('1','Lufhansa','Munich','Munich','Germany', 'MUC'),
+('2','Air Berlin','Berlin','Berlin','Germany', 'TXL'),
+('3','United','Miami','Miami','USA', 'MIA'),
+('4','Air France','Paris','Paris','Franc', 'CDG');
+
+Insert into airplane values
+('1','medium','jet','8000','150', '1'),
+('2','medium','jet','12000','250', '2'),
+('3','medium','jet','7000','350', '3'),
+('4','medium','jet','10000','50', '4'),
+('5','medium','jet','8000','150', '1');
+
+
+Insert into flight_segment values
+('1','90','2000','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'1', 'MUC', 'CDG', '1'),
+('2','80','1500','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'4', 'CDG', 'LHR', '2'),
+('3','120','3000','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'4', 'CDG', 'MIA', '3'),
+('4','80','1500','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'4', 'CDG', 'FCO', '4'),
+('5','30','400','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'2', 'MUC', 'TXL', '5'),
+('6','400','12000','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'1', 'MUC', 'MIA', '1'),
+('7','70','2000','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'3', 'FRA', 'DME', '2'),
+('8','120','3000','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'3', 'ATH', 'MUC', '3'),
+('9','90','2000','2001-09-28 00:00:00','2001-09-28 00:00:00' ,'2', 'ATH', 'TXL', '1');
+
+

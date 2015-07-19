@@ -12,6 +12,6 @@ public abstract class AbstractDAO {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		};
-        return DriverManager.getConnection("jdbc:postgresql:newairline", "postgres", "postgres");
+        return DriverManager.getConnection("jdbc:postgresql:air", "postgres", "Master68");
     }
 }

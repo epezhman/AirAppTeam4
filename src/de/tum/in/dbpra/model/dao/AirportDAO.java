@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.tum.in.dbpra.model.bean.AirportBean;
 
@@ -57,6 +59,36 @@ public class AirportDAO extends AbstractDAO {
 			throw e;
 		}
 
+	}
+	/***
+	 * @brief retrive all registered cities from system for display in flight search autocomplete
+	 * 
+	 * */
+	public List<String> getCitiesForFlightSearch() throws SQLException {
+		String query = new StringBuilder()
+			.append("SELECT city FROM airport ")
+			.toString();
+		List<String> cities=null;
+		try (Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			//airport = new AirportBean();
+			cities = new ArrayList<String>();
+			try (ResultSet resultSet = preparedStatement.executeQuery();) {
+				while (resultSet.next()) {
+					cities.add(resultSet.getString(1));
+				}/* else {
+					throw new CustomerNotFoundException("Database found no customer for the given id!");
+				}*/
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return cities;
 	}
 
 	
