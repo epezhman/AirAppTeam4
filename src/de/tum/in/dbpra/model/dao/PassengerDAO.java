@@ -46,7 +46,6 @@ public class PassengerDAO extends AbstractDAO {
 			e.printStackTrace();
 			throw e;
 		}
-
 		return passengerBean;
 	}
 

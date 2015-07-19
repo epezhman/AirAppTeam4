@@ -54,6 +54,5 @@ public class PassengerServlet extends HttpServlet {
 		}
 		PrintWriter out = response.getWriter();
 		out.print(returnStatus);
-		
 	}
 }
