@@ -69,36 +69,27 @@
 					</div>                 
                     
 					 <div class="form-group">
-					  <label class="control-label">Airplane Type</label>			      
-							 <input type="text" class="form-control" id="airplane_type"
-							name="airplane_type" placeholder="airplane_type">
+					  <label class="control-label">Airplane ID</label>			      
+							 <input type="text" class="form-control" id="airplane_Id"
+							name="airplane_Id" placeholder="airplane_Id">
 					</div>
 
 
-                    
-
-					   <div class="control-group">
-                        <label class="control-label">Airplane Type</label>
-                        <div class="controls">
-                            <div class="input-prepend">
-                                <span class="add-on"><i
-									class="icon-envelope"></i></span>
-                                <input type="text" class="input-xlarge"
-									id="airplane_type" name="airplane_type"
-									placeholder="airplane_type">
-                            </div>
-                        </div>
-                    </div>
+					<div class="form-group">
+					  <label class="control-label">Flight Number</label>			      
+							 <input type="text" class="form-control" id="flight_number"
+							name="flight_number" placeholder="flight_number">
+					</div>
 					
-                    <div class="control-group">
-                        <label class="control-label"></label>
-                        <div class="controls">
-                            <input type="button" value="Submit"
-								id="formSubmit">
+					<div class="form-group">
+					  <label class="control-label">Price</label>			      
+							 <input type="text" class="form-control" id="price" name="price"
+							placeholder="price">
+					</div>
 
-                        </div>
-                    </div>
-
+                    <input type="button" value="Submit" id="formSubmit"
+						class="btn btn-default">
+					              
                 </form>
             </div>
         </div>
@@ -141,6 +132,10 @@
 					required : true,
 					integer : true
 				},
+				airplane_Id : {
+					required : true,
+					integer : true
+				},
 				airport_departure_id : {
 					required : true,
 					lettersonly : true
@@ -148,7 +143,14 @@
 				airport_destination_id : {
 					required : true,
 					lettersonly : true
-				}
+				},
+				flight_number : {
+					required : true
+				},
+				price : {
+					required : true,
+					integer : true
+				},
 
 			}
 
@@ -171,6 +173,8 @@
 									"#airport_departure_id").val();
 							var airport_destination_id = $(
 									"#airport_destination_id").val();
+							var flight_number = $("#flight_number").val();
+							var price = $("#price").val();
 
 							var flight_segment = new Object();
 							flight_segment.flight_segment_id = flight_segment_id;
@@ -181,10 +185,10 @@
 							flight_segment.airline_id = airline_id;
 							flight_segment.airport_departure_id = airport_departure_id;
 							flight_segment.airport_destination_id = airport_destination_id;
-							if ($("#airplane_type").val() != null) {
-								flight_segment.airplane_type = $(
-										"#airplane_type").val();
-							}
+							flight_segment.flight_number = flight_number;
+							flight_segment.price = price;
+							flight_segment.airplane_id = $("#airplane_Id")
+									.val();
 
 							var mydata = JSON.stringify(flight_segment);
 
@@ -209,13 +213,9 @@
 												document.getElementById(
 														"insertflightsegment")
 														.reset();
-												//alert("Insertion successful");
 											},
 											error : function(data, status,
 													error) {
-												//console.log(data);
-												//console.log(status);
-												//console.log(error);
 												alert("Insertion not successful");
 											}
 										});

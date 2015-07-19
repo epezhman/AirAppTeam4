@@ -30,119 +30,101 @@ import com.google.gson.JsonParser;
 @SuppressWarnings("serial")
 public class FlightSegmentservlet extends HttpServlet {
 
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public FlightSegmentservlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-		
 		try {
 			response.setContentType("application/json");
-		    StringBuilder sb = new StringBuilder();
-		    BufferedReader br = request.getReader();
-		    String str;
-		    while( (str = br.readLine()) != null ){
-		        sb.append(str);
-		    }    
-		      JsonParser parser = new JsonParser();
-		    JsonObject rootObj = parser.parse(sb.toString()).getAsJsonObject();
-		    
+			StringBuilder sb = new StringBuilder();
+			BufferedReader br = request.getReader();
+			String str;
+			while ((str = br.readLine()) != null) {
+				sb.append(str);
+			}
+			JsonParser parser = new JsonParser();
+			JsonObject rootObj = parser.parse(sb.toString()).getAsJsonObject();
+
 			AirlineBean airline = new AirlineBean();
 			AirlineDAO airlinedao = new AirlineDAO();
-			
+
 			AirportBean airport = new AirportBean();
 			AirportDAO airportdao = new AirportDAO();
-			
+
 			AirplaneBean airplane = new AirplaneBean();
 			AirplaneDAO airplanedao = new AirplaneDAO();
-			
+
 			FlightSegmentBean flight_segment = new FlightSegmentBean();
 			FlightSegmentDAO flightsegmentdao = new FlightSegmentDAO();
+
+			flight_segment.setFlightSegmentId(rootObj.get("flight_segment_id")
+					.getAsInt());
+			flight_segment.setDurationMinutes(rootObj.get("duration_minutes")
+					.getAsInt());
+			flight_segment.setNumberOfMiles(rootObj.get("number_of_miles")
+					.getAsInt());
+
+			flight_segment.setFlightNumber(rootObj.get("flight_number").getAsString());
 			
-			flight_segment.setFlightSegmentId(rootObj.get("flight_segment_id").getAsInt());
-			flight_segment.setDurationMinutes(rootObj.get("duration_minutes").getAsInt());
-			flight_segment.setNumberOfMiles(rootObj.get("number_of_miles").getAsInt());
-			
-			try{
+			flight_segment.setPrice(rootObj.get("price").getAsString());
+
+			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-				Date date = sdf.parse(rootObj.get("departure_time").getAsString());
-				Timestamp departure_time = new java.sql.Timestamp(date.getTime());
+				Date date = sdf.parse(rootObj.get("departure_time")
+						.getAsString());
+				Timestamp departure_time = new java.sql.Timestamp(
+						date.getTime());
 				flight_segment.setDepartureTime(departure_time);
-				
+
 				date = sdf.parse(rootObj.get("arrival_time").getAsString());
 				Timestamp arrival_time = new java.sql.Timestamp(date.getTime());
 				flight_segment.setArrivalTime(arrival_time);
-				
-			}catch(Exception e){//this generic but you can control another types of exception
+
+			} catch (Exception e) {
 				System.out.println("error");
-			 e.printStackTrace();
+				e.printStackTrace();
 			}
-			
-			
-			
-			/*String arrivalstr = rootObj.get("arrival_time").getAsString();
-			Date parsedate1 = (Date) sdf.parse(arrivalstr);
-			Timestamp arrival_time = new java.sql.Timestamp(parsedate1.getTime());
-			flight_segment.setArrivalTime(arrival_time);*/
-			
+
 			airline.setAirlineId(rootObj.get("airline_id").getAsInt());
 			airlinedao.getAirlineByID(airline);
-//			 inserting airline object into airplane
+			// inserting airline object into airplane
 			flight_segment.setAirline(airline);
-			
-			airport.setAirportId(rootObj.get("airport_departure_id").getAsString());
+
+			airport.setAirportId(rootObj.get("airport_departure_id")
+					.getAsString());
 			airportdao.getAirportByID(airport);
-//			 inserting airline object into airplane
 			flight_segment.setAirportDeparture(airport);
 			airport = new AirportBean();
-			
-			airport.setAirportId(rootObj.get("airport_destination_id").getAsString());
+
+			airport.setAirportId(rootObj.get("airport_destination_id")
+					.getAsString());
 			airportdao.getAirportByID(airport);
-//			 inserting airline object into airplane
 			flight_segment.setAirportDestination(airport);
-			
-			if(rootObj.get("airplane_type").getAsString()!=null){
-			airplane.setAirplaneType(rootObj.get("airplane_type").getAsString());
-			airplanedao.getAirplaneByType(airplane);
-//			 inserting airline object into airplane
-			flight_segment.setAirplane(airplane);
+
+			if (rootObj.get("airplane_id").getAsString() != null) {
+				airplane.setAirplaneId(rootObj.get("airplane_id")
+						.getAsInt());
+				flight_segment.setAirplane(airplane);
 			}
-			
-			
+
 			flightsegmentdao.addflight_segment(flight_segment);
-			//preparing json using Gson
 			Gson gson = new Gson();
 			String json = gson.toJson(flight_segment);
 			PrintWriter out = response.getWriter();
 			out.write(json);
 			System.out.println(json);
-			}
-				catch (IOException e) {
-				e.printStackTrace();
-				}
-		catch (Throwable e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-			//request.setAttribute("error", e.getMessage());
+		} catch (Throwable e) {
+			e.printStackTrace();
 		}
-	      
-		   // RequestDispatcher dispatcher = request.getRequestDispatcher("/airplane.jsp");
-			//dispatcher.forward(request, response);
 
 	}
 

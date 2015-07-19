@@ -25,7 +25,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 	 */
 	
 	public Boolean addflight_segment(FlightSegmentBean flight_segment) throws SQLException{
-		String query = "insert into flight_segment(flight_segment_id,duration_minutes,number_of_miles,departure_time,arrival_time,airline_id,airport_departure_id,airport_destination_id,airplane_id) values(?,?,?,?,?,?,?,?,?)"; 
+		String query = "insert into flight_segment(flight_segment_id,duration_minutes,number_of_miles,departure_time,arrival_time,airline_id,airport_departure_id,airport_destination_id,airplane_id, flight_number, price) values(?,?,?,?,?,?,?,?,?,?,?)"; 
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			connection.setAutoCommit(false);
@@ -38,6 +38,8 @@ public class FlightSegmentDAO extends AbstractDAO {
 			preparedStatement.setString(7,flight_segment.getAirportDeparture().getAirportId());
 			preparedStatement.setString(8, flight_segment.getAirportDestination().getAirportId());
 			preparedStatement.setInt(9,flight_segment.getAirplane().getAirplaneId());
+			preparedStatement.setString(10,flight_segment.getFlightNumber());
+			preparedStatement.setInt(11, Integer.parseInt(flight_segment.getPrice().replace("\"", "")));
 			preparedStatement.executeUpdate();
 			connection.commit();
 			return true;
