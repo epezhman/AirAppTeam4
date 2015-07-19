@@ -281,8 +281,7 @@
 	</nav>
 
 	<div class="container main">
-
-
+	
 		<div class="jumbotron">
 			<h1>Air Traffic App Team 4</h1>
 		</div>
