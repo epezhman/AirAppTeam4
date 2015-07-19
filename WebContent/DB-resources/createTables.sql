@@ -31,8 +31,6 @@ CREATE TABLE airplane (
 );
 
 
-
-
 CREATE TABLE passenger (
     passenger_id serial NOT NULL,
     first_name text NOT NULL,
@@ -64,8 +62,8 @@ CREATE TABLE flight_segment (
     departure_time timestamp without time zone NOT NULL,
     arrival_time timestamp without time zone NOT NULL,
     airline_id integer NOT NULL,
-    airport_destination_id text NOT NULL,
     airport_departure_id text NOT NULL,
+    airport_destination_id text NOT NULL,
     airplane_id integer NOT NULL,
     primary key (flight_segment_id),
     foreign key (airline_id) references airline (airline_id) ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -183,25 +181,34 @@ Insert into airline values
 ('1','Lufhansa','Munich','Munich','Germany', 'MUC'),
 ('2','Air Berlin','Berlin','Berlin','Germany', 'TXL'),
 ('3','United','Miami','Miami','USA', 'MIA'),
-('4','Air France','Paris','Paris','Franc', 'CDG');
+('4','Air France','Paris','Paris','France', 'CDG'),
+('5','British Airways','London','London','UK', 'LHR'),
+('6','Delta','Miami','Miami','USA', 'MIA');
+
 
 Insert into airplane values
 ('1','medium','jet','8000','150', '1'),
 ('2','medium','jet','12000','250', '2'),
 ('3','medium','jet','7000','350', '3'),
 ('4','medium','jet','10000','50', '4'),
-('5','medium','jet','8000','150', '1');
+('5','medium','jet','8000','150', '5'),
+('6','medium','jet','8000','150', '6');
+
 
 
 Insert into flight_segment values
-('1','90','2000','2015-07-10 10:00:00','2015-07-10 11:00:00' ,'1', 'MUC', 'CDG', '1'),
-('2','80','1500','2015-07-11 11:00:00','2015-07-11 12:00:00' ,'4', 'CDG', 'LHR', '2'),
-('3','120','3000','2015-07-10 12:00:00','2015-07-10 13:00:00' ,'4', 'CDG', 'MIA', '3'),
-('4','80','1500','2015-07-17 13:00:00','2015-07-17 14:00:00' ,'4', 'CDG', 'FCO', '4'),
-('5','30','400','2015-07-18 14:00:00','2015-07-18 15:00:00' ,'2', 'MUC', 'TXL', '5'),
-('6','400','12000','2015-07-19 15:00:00','2015-07-19 16:00:00' ,'1', 'MUC', 'MIA', '1'),
-('7','70','2000','2015-07-10 16:00:00','2015-07-10 17:00:00' ,'3', 'FRA', 'DME', '2'),
-('8','120','3000','2015-07-10 17:00:00','2015-07-10 18:00:00' ,'3', 'ATH', 'MUC', '3'),
-('9','90','2000','2015-07-10 18:00:00','2015-07-10 19:00:00' ,'2', 'ATH', 'TXL', '1');
+('1','90','1000','2015-07-20 10:00:00','2015-07-20 11:30:00' ,'1', 'MUC', 'LHR', '1'),
+('2','300','5000','2015-07-20 11:00:00','2015-07-20 16:00:00' ,'3', 'LHR', 'MIA', '3'),
+('3','330','5500','2015-08-22 12:00:00','2015-08-22 17:30:00' ,'3', 'MIA', 'LHR', '3'),
+('4','80','900','2015-08-22 13:00:00','2015-08-22 14:20:00' ,'1', 'LHR', 'MUC', '1'),
+('5','60','800','2015-07-20 14:00:00','2015-07-20 15:00:00' ,'2', 'MUC', 'TXL', '2'),
+('6','55','750','2015-08-22 15:00:00','2015-08-22 15:55:00' ,'2', 'TXL', 'MUC', '2'),
+
+('7','90','1000','2015-07-20 10:10:00','2015-07-20 11:40:00' ,'5', 'MUC', 'LHR', '5'),
+('8','300','5000','2015-07-20 11:10:00','2015-07-20 16:10:00' ,'6', 'LHR', 'MIA', '6'),
+('9','330','5500','2015-08-22 12:10:00','2015-08-22 17:40:00' ,'6', 'MIA', 'LHR', '6'),
+('10','80','900','2015-08-22 13:10:00','2015-08-22 14:30:00' ,'5', 'LHR', 'MUC', '5'),
+('11','60','800','2015-07-20 14:10:00','2015-07-20 15:10:00' ,'1', 'MUC', 'TXL', '1'),
+('12','55','750','2015-08-22 15:10:00','2015-08-22 16:05:00' ,'1', 'TXL', 'MUC', '1');
 
 

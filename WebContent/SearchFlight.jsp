@@ -112,6 +112,7 @@
 		deleteRow("flight");
 		tableBody = document.createElement('TBODY');
 		table.appendChild(tableBody);
+		$("#flights-continer").show();
 
 		for (var i = 0; i < arr.length; i++) {
 
@@ -239,6 +240,12 @@
 	</nav>
 
 	<div class="container main">
+
+
+		<div class="jumbotron">
+			<h1>Air Traffic App Team 4</h1>
+		</div>
+
 		<div class="well well-lg">
 
 			<h3>Search Flight</h3>
