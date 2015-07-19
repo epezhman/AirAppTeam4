@@ -117,7 +117,6 @@
            	 	<tr>
           			<td><label>Passenger Type: </label><input id="passengerType"></td>
           	  		<td><label>Country</label>
-          	  		
           			<select id="country">
 	          			<%
 	          				String[] locales = Locale.getISOCountries();
