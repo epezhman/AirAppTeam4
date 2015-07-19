@@ -29,7 +29,7 @@ public class PassengerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setContentType("text/plain");
+response.setContentType("text/plain");
 		
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -47,6 +47,7 @@ public class PassengerServlet extends HttpServlet {
 		try {
 			passenger = passengerDAO.createPassenger(firstName, lastName, address, gender,
 					nationality, passengerType, phoneNumber, country); 
+			passengerDAO.getPassengerID(passenger);
 			session.setAttribute("passenger", passenger);
 			returnStatus = true;
 		} catch (SQLException e) {
