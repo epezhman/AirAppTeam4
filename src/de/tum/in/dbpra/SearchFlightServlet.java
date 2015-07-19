@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +20,11 @@ import de.tum.in.dbpra.model.dao.FlightSegmentDAO;
 
 @WebServlet(value = "/searchFlight", loadOnStartup = 1)
 public class SearchFlightServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void init() throws ServletException {

@@ -6,7 +6,6 @@ package de.tum.in.dbpra.model.dao;
 import java.sql.SQLException;
 
 import de.tum.in.dbpra.model.bean.SampleContainerBean;
-import de.tum.in.dbpra.model.bean.SampleBean;
 
 public class CheckInDAO extends AbstractDAO {
 

@@ -5,10 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import de.tum.in.dbpra.model.bean.AirlineBean;
-import de.tum.in.dbpra.model.bean.AirportBean;
 import de.tum.in.dbpra.model.bean.TicketBean;
-import de.tum.in.dbpra.model.dao.AirportDAO.AirportNotFoundException;
 
 public class TicketDAO extends AbstractDAO {
 	

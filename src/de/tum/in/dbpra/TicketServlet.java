@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.tum.in.dbpra.model.bean.FlightSegmentBean;
 import de.tum.in.dbpra.model.bean.PassengerBean;
 import de.tum.in.dbpra.model.bean.TicketBean;
-
 import de.tum.in.dbpra.model.dao.TicketDAO;
 
 @SuppressWarnings("serial")

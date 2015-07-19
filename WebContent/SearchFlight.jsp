@@ -357,6 +357,9 @@
 			<table border='1' id="flight">
 
 			</table>
+			<table border='1' id="flight">
+
+			</table>
 			<button type="button" class="btn btn-primary"
 				onClick="callPassengerJSP()">Proceed</button>
 

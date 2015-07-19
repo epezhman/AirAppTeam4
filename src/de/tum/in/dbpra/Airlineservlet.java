@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.AirlineBean;
-import de.tum.in.dbpra.model.bean.AirplaneBean;
 import de.tum.in.dbpra.model.bean.AirportBean;
 import de.tum.in.dbpra.model.dao.AirlineDAO;
-import de.tum.in.dbpra.model.dao.AirplaneDAO;
 import de.tum.in.dbpra.model.dao.AirportDAO;
 
 import com.google.gson.Gson;

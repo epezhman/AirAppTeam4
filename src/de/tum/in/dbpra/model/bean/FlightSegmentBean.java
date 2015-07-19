@@ -13,6 +13,9 @@ public class FlightSegmentBean {
 	private AirportBean airport_destination;
 	private AirportBean airport_departure;
 	private AirplaneBean airplane;
+	
+	private int which_way;
+	private int group;
 
 	public int getFlightSegmentId() {
 		return flight_segment_id;
@@ -86,6 +89,20 @@ public class FlightSegmentBean {
 		this.airplane = airplane;
 	}
 	
+	public void setWhichWay(int which_way) {
+		this.which_way = which_way;
+	}
+
+	public int getWhichWay() {
+		return which_way;
+	}
 	
+	public void setGroup(int group) {
+		this.group = group;
+	}
+
+	public int getGroup() {
+		return group;
+	}
 	
 }

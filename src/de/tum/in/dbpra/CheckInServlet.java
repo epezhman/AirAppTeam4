@@ -36,8 +36,8 @@ public class CheckInServlet extends HttpServlet {
 			// set response type
 			response.setContentType("application/json");
 
-			String ticket_num = request.getParameter("ticket_num");
-			String lastName = request.getParameter("last_name");
+		//String ticket_num = request.getParameter("ticket_num");
+			//String lastName = request.getParameter("last_name");
 
 			CharArrayWriterResponse customResponse = new CharArrayWriterResponse(
 					response);

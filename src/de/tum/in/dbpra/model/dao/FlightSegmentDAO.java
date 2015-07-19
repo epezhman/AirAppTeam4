@@ -58,11 +58,11 @@ public class FlightSegmentDAO extends AbstractDAO {
 			String fromDate, String ticketClass,String noOfPass,String isOneway) throws SQLException {
 
 		String directFlightQuery = constructDirectFlightQuery( to,  from,  toDate,fromDate,  ticketClass, noOfPass, isOneway);
-		List<FlightSegmentBean> direcFlights = executeSearchFlightQuery(directFlightQuery);
+		List<FlightSegmentBean> direcFlights = executeSearchFlightQuery(directFlightQuery, to, from);
 		System.out.println("direct flight size"+direcFlights.size());
 		if (direcFlights.size() == 0){
 			String connFlightQuery = constructConnFlightQuery( to,  from,  toDate,fromDate,  ticketClass, noOfPass, isOneway);
-			return executeSearchFlightQuery(connFlightQuery);
+			return executeSearchFlightQuery(connFlightQuery, to, from);
 		}else{
 			return direcFlights;
 		}
@@ -212,7 +212,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 	 * @brief search direct flights in db with user preferences for first seven available flights 
 	 * 
 	 * */
-	public List<FlightSegmentBean> executeSearchFlightQuery(String query) throws SQLException {
+	public List<FlightSegmentBean> executeSearchFlightQuery(String query, String to, String from) throws SQLException {
 
 		List<FlightSegmentBean> flights = new ArrayList<FlightSegmentBean>();
 		try (Connection connection = getConnection();
@@ -243,6 +243,12 @@ public class FlightSegmentDAO extends AbstractDAO {
 					flightSegmentBean.setAirline(airline);
 					airplane.setAirplaneType(rs.getString("airplanetype"));
 					flightSegmentBean.setAirplane(airplane);
+					
+					if(airportDeparture.getCity().toLowerCase().equals(from.toLowerCase()))
+						flightSegmentBean.setWhichWay(1);
+					else
+						flightSegmentBean.setWhichWay(2);
+					
 
 					flights.add(flightSegmentBean);
 				}/* else {
@@ -259,9 +265,5 @@ public class FlightSegmentDAO extends AbstractDAO {
 		}
 		return flights;
 	}
-
-
-
-
 
 }
