@@ -54,8 +54,9 @@
 				cache: false,
 				success: function(responseObj) {
 					if (responseObj == 'true'){
-						var messageDiv = document.getElementById("message");
-						messageDiv.style.display = 'block';
+						/* var messageDiv = document.getElementById("message");
+						messageDiv.style.display = 'block'; */
+						window.location.href="ticket";
 					}
 				}
 			});
