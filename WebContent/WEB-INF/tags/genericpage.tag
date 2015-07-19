@@ -18,6 +18,8 @@
 
 <script src="./resources/js/jquery-1.11.3.js"></script>
 <script src="./resources/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
 
 <script src="./resources/js/jquery.datetimepicker.js"></script>
 
