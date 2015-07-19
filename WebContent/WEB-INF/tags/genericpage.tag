@@ -13,13 +13,13 @@
 <title>Air App</title>
 
 <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resources/css/jquery-ui.min.css" rel="stylesheet">
 <link href="./resources/css/custom.css" rel="stylesheet">
 <link href="./resources/css/jquery.datetimepicker.css" rel="stylesheet">
 
 <script src="./resources/js/jquery-1.11.3.js"></script>
+<script src="./resources/js/jquery-ui.min.js"></script>
 <script src="./resources/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
 
 <script src="./resources/js/jquery.datetimepicker.js"></script>
 

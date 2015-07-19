@@ -52,11 +52,11 @@
 		var ticket = $('#ticketClass').val();
 		var isOneway = $('#oneway').is(':checked');
 		var noofPass = $('#noofPass').val();
-		
-		$('#one-flight-caption').text( from + ' --> ' + to );
-		$('#two-flight-caption').text( to + ' --> ' + from );
+
+		$('#one-flight-caption').text(from + ' --> ' + to);
+		$('#two-flight-caption').text(to + ' --> ' + from);
 		$('#one-flight-container').show();
-		if(!isOneway)
+		if (!isOneway)
 			$('#two-flight-container').show();
 		else
 			$('#two-flight-container').hide();
@@ -87,11 +87,9 @@
 					arr = JSON.parse(parseObj);
 					if (arr.length != 0) {
 						displayFlights(arr);
-					}
-					else
-						{
+					} else {
 						$("#flights-continer").hide();
-						}
+					}
 				}
 			});
 			return false;
@@ -113,6 +111,31 @@
 		} catch (e) {
 			alert(e);
 		}
+	}
+
+	function userSelectedFlights(arr) {
+
+		var dataline = new Array();
+		dataline = arr.split('|');
+
+		var dataString = "departure_time=" + dataline[0] + "&arrival_time="
+				+ dataline[1] + "&airplane_type=" + dataline[2]
+				+ "&airline_name=" + dataline[3] + "&airport_destination_name="
+				+ dataline[4] + "&airport_destination_city=" + dataline[5]
+				+ "&airport_departure_name=" + dataline[6]
+				+ "&airport_departure_city=" + dataline[7] + "&flight_price="
+				+ dataline[8] + "&flight_number=" + dataline[9];
+		$.ajax({
+			type : "POST",
+			dataType : "json",
+			url : "selectedFlight",
+			data : dataString,
+
+			cache : false,
+
+		});
+		return false;
+
 	}
 
 	function displayFlights(arr) {
@@ -156,11 +179,29 @@
 							+ arr[i].airport_destination.city));
 			trHeader.appendChild(tdHeader);
 
+			tdHeaderPic = document.createElement('TD');
+
+			var oImg = document.createElement("img");
+			oImg.setAttribute('src', './resources/imgs/' + airline_name
+					+ '.png');
+			oImg.setAttribute('alt', 'na');
+			oImg.style.width = '60px';
+			tdHeaderPic.appendChild(oImg);
+			trHeader.appendChild(tdHeaderPic);
+
 			createFlightHeader(trFlightDetailsHeader);
 
-			var radioBtn = document.createElement("input");
+			radioBtn = document.createElement("input");
 			radioBtn.setAttribute("type", "radio");
-			radioBtn.setAttribute("name", "flightSelection" + i);
+			radioBtn.setAttribute("id",i);
+			radioBtn.setAttribute("name", "flightSelection"+i);
+			radioBtn.setAttribute("value",departure_time+"|"+arrival_time+"|"
+			+airplane_type+"|"+	airline_name+"|"+airport_destination_name +"|"+airport_destination_city +"|"+	
+			airport_departure_name+"|"+airport_departure_city+"|"+flight_price+"|"+flight_number
+			);
+			radioBtn.onclick = function(){
+				userSelectedFlights(this.value);				
+			};
 
 			tr = document.createElement('TR');
 
@@ -193,13 +234,14 @@
 			tdAirplaneType = document.createElement('TD');
 			tdAirplaneType.appendChild(document.createTextNode(airplane_type));
 			tr.appendChild(tdAirplaneType);
-			
+
 			tdFlightNumber = document.createElement('TD');
 			tdFlightNumber.appendChild(document.createTextNode(flight_number));
 			tr.appendChild(tdFlightNumber);
-			
+
 			tdFlightPrice = document.createElement('TD');
-			tdFlightPrice.appendChild(document.createTextNode(flight_price + ' €'));
+			tdFlightPrice.appendChild(document.createTextNode(flight_price
+					+ ' €'));
 			tr.appendChild(tdFlightPrice);
 
 			if (arr[i].which_way == "1") {
@@ -222,7 +264,8 @@
 		trFlightDetailsHeader = document.createElement('TR');
 		var headerFlihgt = new Array();
 		headerFlihgt.push("", "Deaprt Time", "Arrival Time", "Depart Airport",
-				"Arrival Airport", "Airline", "Airplane", "Flight Number", "Price");
+				"Arrival Airport", "Airline", "Airplane", "Flight Number",
+				"Price");
 		for (var i = 0; i < headerFlihgt.length; i++) {
 			td = document.createElement('TD');
 			td.appendChild(document.createTextNode(headerFlihgt[i]));
@@ -256,7 +299,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./home.html">Air App</a>
+			<a class="navbar-brand" href="./home.html"> Air App</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -281,7 +324,7 @@
 	</nav>
 
 	<div class="container main">
-	
+
 		<div class="jumbotron">
 			<h1>Air Traffic App Team 4</h1>
 		</div>
@@ -396,13 +439,13 @@
 		<div style="display: none" id="flights-continer">
 
 			<div style="display: none" id="one-flight-container">
-				<p id="one-flight-caption"  class="bg-info" style="padding:10px"></p>
+				<p id="one-flight-caption" class="bg-info" style="padding: 10px"></p>
 				<table border='1' id="one-flight">
 
 				</table>
 			</div>
 			<div style="display: none" id="two-flight-container">
-				<p id="two-flight-caption"  class="bg-info" style="padding:10px"></p>
+				<p id="two-flight-caption" class="bg-info" style="padding: 10px"></p>
 				<table border='1' id="two-flight">
 
 				</table>

@@ -23,24 +23,15 @@ import com.google.gson.JsonParser;
 public class Airplaneservlet extends HttpServlet {
 
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public Airplaneservlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
@@ -66,32 +57,22 @@ public class Airplaneservlet extends HttpServlet {
 			airplane.setAirplaneType(rootObj.get("airplane_type").getAsString());
 			airplane.setAirplaneRange(rootObj.get("airplane_range").getAsInt());
 			airplane.setTotalSeats(rootObj.get("total_seats").getAsInt());
-			//get airline object from airline_id
 			airline.setAirlineId(rootObj.get("airline_id").getAsInt());
 			airlinedao.getAirlineByID(airline);
-//			 inserting airline object into airplane
 			airplane.setAirline(airline);
 			airplanedao.addairplane(airplane);
-			//preparing json using Gson
 			Gson gson = new Gson();
 			String json = gson.toJson(airplane);
 			PrintWriter out = response.getWriter();
 			out.write(json);
-//			System.out.println(json);
 			}
 				catch (IOException e) {
-				//e.printStackTrace();
 					e.getMessage();
 				}	
 		catch (Throwable e) {
-		
-//			e.printStackTrace();
-			//e.getMessage();
-			//request.setAttribute("error", e.getMessage());
+
 		}
 	      
-		   // RequestDispatcher dispatcher = request.getRequestDispatcher("/airplane.jsp");
-			//dispatcher.forward(request, response);
 
 	}
 

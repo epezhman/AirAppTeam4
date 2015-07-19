@@ -9,93 +9,58 @@
 		<div class="well">
 
 		<div id="responsediv" style="display: none">
-		<!-- the response in these label are coming from server -->
-		<div class="alert alert-success" role="alert">
-		Insertion was successful.
-		</div> 
+			<!-- the response in these label are coming from server -->
+			<div class="alert alert-success" role="alert">
+				Insertion was successful.
+			</div> 
 		</div>	
-      	<form id="insertairplane" class="form-horizontal">
+      	<form id="insertairplane">
 
         <h3>Enter new airplane</h3>
 
-        <div class="control-group">
-            <label class="control-label">Airplane ID</label>
-            <div class="controls">
-                <div class="input-prepend">
-                <span class="add-on"><i class="icon-user"></i></span>
-                    <input type="number" class="input-xlarge"
-									id="airplaneid" name="airplaneid" placeholder="airplaneid">
-                </div>
-            </div>
-        </div>
-        <div class="control-group ">
-            <label class="control-label">size_class</label>
-            <div class="controls">
-                <div class="input-prepend">
-                <span class="add-on"><i class="icon-user"></i></span>
-                    <input type="text" class="input-xlarge"
-									id="size_class" name="size_class" placeholder="size_class">
-                </div>
-            </div>
-        </div>
+		<div class="form-group">
+				     <label class="control-label">Airplane ID</label>
+					<input type="number" class="form-control" id="airplaneid"
+							name="airplaneid" placeholder="airplaneid">
+		</div>
+				
+		<div class="form-group">
+				     <label class="control-label">Size Class</label>
+					<input type="text" class="form-control" id="size_class"
+							name="size_class" placeholder="size_class">
+		</div>
+		
+		<div class="form-group">
+				     <label class="control-label">Airplane Type</label>
+					<input type="text" class="form-control" id="airplane_type"
+							name="airplane_type" placeholder="airplane_type">
+		</div>
 
-        <div class="control-group">
-        <label class="control-label">Airplane Type</label>
-	    <div class="controls">
-		<div class="input-prepend">
-        <span class="add-on"><i class="icon-envelope"></i></span>
-		<input type="text" class="input-xlarge" id="airplane_type"
-									name="airplane_type" placeholder="airplane_type">
-        </div>
-		 </div>
-	</div>
-	  <div class="control-group">
-        <label class="control-label">Airplane Range</label>
-	    <div class="controls">
-		<div class="input-prepend">
-        <span class="add-on"><i class="icon-envelope"></i></span>
-		<input type="number" class="input-xlarge" id="airplane_range"
-									name="airplane_range" placeholder="airplane_range">
-        </div>
-		 </div>
-	</div>
-	<div class="control-group">
-        <label class="control-label">Total seats</label>
-	    <div class="controls">
-		<div class="input-prepend">
-        <span class="add-on"><i class="icon-envelope"></i></span>
-		<input type="number" class="input-xlarge" id="total_seats"
-									name="total_seats" placeholder="total_seats">
-        </div>
-		 </div>
-	</div>
-
-		<div class="control-group">
-        <label class="control-label">Airline ID</label>
-	    <div class="controls">
-		<div class="input-prepend">
-        <span class="add-on"><i class="icon-envelope"></i></span>
-		<input type="number" class="input-xlarge" id="airline_id"
-									name="airline_id" placeholder="airline_id">
-        </div>
-		 </div>
-	</div>
-	
+        <div class="form-group">
+				     <label class="control-label">Airplane Range</label>
+					<input type="number" class="form-control" id="airplane_range"
+							name="airplane_range" placeholder="airplane_range">
+		</div>
       
-        <div class="control-group">
-        <label class="control-label"></label>
-          <div class="controls">
-         <input type="button" value="Submit" id="formSubmit">
-           
-          </div>
-    </div>
+		<div class="form-group">
+				     <label class="control-label">Total Seats</label>
+					<input type="number" class="form-control" id="total_seats"
+							name="total_seats" placeholder="total_seats">
+		</div>
+        
+	 <div class="form-group">
+				     <label class="control-label">Airline ID</label>
+					<input type="number" class="form-control" id="airline_id"
+							name="airline_id" placeholder="airline_id">
+		</div>
+	 <input type="button" value="Submit" id="formSubmit" class="btn btn-default">
+		
+        
       </form>
       </div>
       </div>
-   <script src="./resources/js/jquery.validate.js"></script> 
-    <script src="./resources/js/additional-methods.js">
-					
-				</script>
+  	<script src="./resources/js/jquery.validate.js"></script> 
+    <script src="./resources/js/additional-methods.js"></script>
 	<script>
 		// data array
 
@@ -180,10 +145,6 @@
 
 							}
 						});
-	</script>    
-	
-	
-	
-	
+	</script>    	
 	</jsp:attribute>
 </t:genericpage>
