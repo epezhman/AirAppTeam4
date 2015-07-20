@@ -108,14 +108,27 @@
                     		</c:forEach>
                     </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary"
-					>Print Ticket</button>
+                    <button type="button" class="btn btn-primary" onclick="logout()" id="logout">Print Ticket</button>
                     </div>
             </div>
         <!-- </div> -->
 
       </jsp:attribute>
 </t:genericpage>
+<script>
+	
+	function logout(){
+		$
+		.ajax({
+			type : "POST",	
+			url : "ticket",
+			success : function(data) {
+				window.location.href="home.html";
+			}
+		});
+	}
+
+</script>
 
 
 
