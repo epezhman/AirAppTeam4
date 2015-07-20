@@ -5,10 +5,13 @@
 	<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@page import="de.tum.in.dbpra.model.bean.TicketBean"%>
 <%@page import="de.tum.in.dbpra.model.bean.PassengerBean"%>
+<%@page import="de.tum.in.dbpra.model.bean.FlightSegmentBean"%>
 <jsp:useBean id="passenger" scope="session"
 	class="de.tum.in.dbpra.model.bean.PassengerBean" />
-<jsp:useBean id="ticket" scope="request"
+<jsp:useBean id="ticket" scope="session"
 	class="de.tum.in.dbpra.model.bean.TicketBean" />
+<jsp:useBean id="flightselected" scope="session"
+	class="de.tum.in.dbpra.model.bean.FlightSegmentBean" />
 
 <t:genericpage>
 	<jsp:attribute name="body">	
@@ -51,7 +54,7 @@
                    <%--  <td> Ticket type</td>
                     <td> &nbsp; asd</td> --%>
                     <td> Price</td>
-                    <td> ${ticket.getPrice()}</td>
+                    <td> ${ticket.getPrice()}Euro</td>
                     </tr>
                     </tbody>
                     </table>
@@ -76,6 +79,34 @@
                     </tr>
                     </tbody>
                     </table>
+                    
+                    <br>
+                    <table class="table table-condensed">
+                    <thead>
+                    <th> Flight Details</th>
+                    
+                    </thead>
+                    <tbody>
+                    <tr><td>Flight Number</td><td>${flightselected.getFlightNumber() }
+                    </td></tr>
+                    <tr>
+                  <td>From </td>
+                  <td>${flightselected.getAirportDeparture().getAirportId()} </td> 
+                 <td>Departure Date </td>
+                  <td> ${flightselected.getDepartureTime()} </td> 
+            		
+                    </tr>
+                       <tr>
+                  
+                  <td>To</td>
+            		<td>${flightselected.getAirportDestination().getAirportId()} </td>
+            		<td>Arrival Date</td>
+            		<td> ${flightselected.getArrivalTime()}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary"
+					>Print Ticket</button>
                     </div>
             </div>
         <!-- </div> -->

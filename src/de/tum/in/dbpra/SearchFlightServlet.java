@@ -51,7 +51,7 @@ public class SearchFlightServlet extends HttpServlet {
 		try {
 			searchFlightList = flightSegmentDAO.searchFlight(to, from, toDate,
 					fromDate, ticketClass, noofPass, isOneway);
-			session.setAttribute("flight",searchFlightList);
+			//session.setAttribute("flight",searchFlightList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -14,14 +14,11 @@ public class FlightSegmentBean {
 	private AirportBean airport_departure;
 	private AirplaneBean airplane;
 	
-	private String price;
+	private int price;
 	private String flight_number;
 	
 	private int which_way;
 	private int group;
-	
-	private String departure_time_ticket;
-	private String arrival_time_ticket;
 
 	public int getFlightSegmentId() {
 		return flight_segment_id;
@@ -111,11 +108,11 @@ public class FlightSegmentBean {
 		return group;
 	}
 	
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 	
@@ -125,22 +122,6 @@ public class FlightSegmentBean {
 
 	public String getFlightNumber() {
 		return flight_number;
-	}
-	
-	public String getDeparture_time_ticket() {
-		return departure_time_ticket;
-	}
-
-	public void setDeparture_time_ticket(String departure_time_ticket) {
-		this.departure_time_ticket = departure_time_ticket;
-	}
-
-	public String getArrival_time_ticket() {
-		return arrival_time_ticket;
-	}
-
-	public void setArrival_time_ticket(String arrival_time_ticket) {
-		this.arrival_time_ticket = arrival_time_ticket;
 	}
 	
 }

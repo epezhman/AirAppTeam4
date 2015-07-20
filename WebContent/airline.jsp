@@ -16,7 +16,7 @@
 		</div>	
       	<form id="insertairline">
 
-        <h3>Enter new airport</h3>
+        <h3>Enter new airline</h3>
         
         <div class="form-group">
 				     <label class="control-label">Airline ID</label>
