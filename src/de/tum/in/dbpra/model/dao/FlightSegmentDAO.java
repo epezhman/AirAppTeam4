@@ -39,7 +39,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 			preparedStatement.setInt(2, flight_segment.getDurationMinutes());
 			preparedStatement.setInt(3, flight_segment.getNumberOfMiles());
 			preparedStatement
-					.setTimestamp(4, flight_segment.getDepartureTime());
+			.setTimestamp(4, flight_segment.getDepartureTime());
 			preparedStatement.setTimestamp(5, flight_segment.getArrivalTime());
 			preparedStatement.setInt(6, flight_segment.getAirline()
 					.getAirlineId());
@@ -122,24 +122,35 @@ public class FlightSegmentDAO extends AbstractDAO {
 		}
 	}
 
+	/**
+	 * @brief find connection flight query
+	 * @param to
+	 * @param from
+	 * @param toDate
+	 * @param fromDate
+	 * @param ticketClass
+	 * @param noOfPass
+	 * @param isOneway
+	 * @return
+	 */
 	private String constructConnFlightQuery(String to, String from,
 			String toDate, String fromDate, String ticketClass,
 			String noOfPass, String isOneway) {
 		StringBuilder orderBy = new StringBuilder();
 		StringBuilder query = new StringBuilder()
-				// query for retrieving common connection bw origin and
-				// destination
-				.append(" ( with connection1 as ( select target.city as conn_city from flight_segment fs2 ")
-				.append(" inner join airport target on fs2.airport_destination_id = target.airport_id")
-				.append(" inner join airport origin on fs2.airport_departure_id = origin.airport_id")
-				.append(" where origin.city ='")
-				.append(from)
-				.append("'")
-				.append(" INTERSECT ")
-				.append(" select target.city as conn_city from flight_segment fs1")
-				.append(" inner join airport target on fs1.airport_destination_id = target.airport_id")
-				.append(" inner join airport origin on fs1.airport_departure_id = origin.airport_id")
-				.append(" where origin.city ='").append(to).append("')");
+		// query for retrieving common connection bw origin and
+		// destination
+		.append(" ( with connection1 as ( select target.city as conn_city from flight_segment fs2 ")
+		.append(" inner join airport target on fs2.airport_destination_id = target.airport_id")
+		.append(" inner join airport origin on fs2.airport_departure_id = origin.airport_id")
+		.append(" where origin.city ='")
+		.append(from)
+		.append("'")
+		.append(" INTERSECT ")
+		.append(" select target.city as conn_city from flight_segment fs1")
+		.append(" inner join airport target on fs1.airport_destination_id = target.airport_id")
+		.append(" inner join airport origin on fs1.airport_departure_id = origin.airport_id")
+		.append(" where origin.city ='").append(to).append("')");
 
 		// query for retrieving conn flight from origin
 		query.append(
@@ -210,7 +221,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 					.append(" '").append(toDate).append("' )");
 
 			orderBy.append("( ").append(query)
-					.append(" order by departure_time asc ) ");
+			.append(" order by departure_time asc ) ");
 			System.out.println("connection flight query with order by "
 					+ orderBy);
 			return orderBy.toString();
@@ -219,22 +230,32 @@ public class FlightSegmentDAO extends AbstractDAO {
 		return query.toString();
 
 	}
-
+	/**
+	 * direct connection  query 
+	 * @param to
+	 * @param from
+	 * @param toDate
+	 * @param fromDate
+	 * @param ticketClass
+	 * @param noOfPass
+	 * @param isOneway
+	 * @return
+	 */
 	private String constructDirectFlightQuery(String to, String from,
 			String toDate, String fromDate, String ticketClass,
 			String noOfPass, String isOneway) {
 
 		StringBuilder query = new StringBuilder()
-				.append(" (select  departure_time,arrival_time,origin.city as departcity,target.city as arrivalcity,ar.airline_name as airlinename,ap.airplane_type as airplanetype, flight_number, price")
-				.append(" ,origin.name as departairport, target.name as arrivalairport from flight_segment fs ")
-				.append(" inner join airport target on fs.airport_destination_id = target.airport_id")
-				.append(" inner join airport origin on fs.airport_departure_id = origin.airport_id")
-				.append(" inner join airline ar on fs.airline_id = ar.airline_id")
-				.append(" inner join airplane ap on fs.airplane_id = ap.airplane_id where ")
-				.append(" origin.city ='").append(from)
-				.append("' AND target.city='").append(to).append("'")
-				.append("  AND (select departure_time::timestamp::date)  >='")
-				.append(fromDate).append("' limit 7 )");
+		.append(" (select  departure_time,arrival_time,origin.city as departcity,target.city as arrivalcity,ar.airline_name as airlinename,ap.airplane_type as airplanetype, flight_number, price")
+		.append(" ,origin.name as departairport, target.name as arrivalairport from flight_segment fs ")
+		.append(" inner join airport target on fs.airport_destination_id = target.airport_id")
+		.append(" inner join airport origin on fs.airport_departure_id = origin.airport_id")
+		.append(" inner join airline ar on fs.airline_id = ar.airline_id")
+		.append(" inner join airplane ap on fs.airplane_id = ap.airplane_id where ")
+		.append(" origin.city ='").append(from)
+		.append("' AND target.city='").append(to).append("'")
+		.append("  AND (select departure_time::timestamp::date)  >='")
+		.append(fromDate).append("' limit 7 )");
 
 		if (isOneway.equals("false")) {
 			query.append(
@@ -262,7 +283,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 	 * */
 	public List<String> searchReturnFlight(String to, String from,
 			String toDate, String fromDate, String ticketClass, String noOfPass)
-			throws SQLException {
+					throws SQLException {
 
 		String query = new StringBuilder().append("SELECT city FROM airport ")
 				.toString();
@@ -270,7 +291,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(query);) {
-			// airport = new AirportBean();
+			connection.setAutoCommit(false);
 			cities = new ArrayList<String>();
 			try (ResultSet resultSet = preparedStatement.executeQuery();) {
 				while (resultSet.next()) {
@@ -281,6 +302,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 				e.printStackTrace();
 				throw e;
 			}
+			connection.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -288,11 +310,14 @@ public class FlightSegmentDAO extends AbstractDAO {
 		return cities;
 	}
 
-	/***
-	 * @brief search direct flights in db with user preferences for first seven
-	 *        available flights
-	 * 
-	 * */
+	/**
+	 * @breif one generic query executor for both direct or connecting flight
+	 * @param query
+	 * @param to
+	 * @param from
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<FlightSegmentBean> executeSearchFlightQuery(String query,
 			String to, String from) throws SQLException {
 
@@ -300,6 +325,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(query);) {
+			connection.setAutoCommit(false);
 			FlightSegmentBean flightSegmentBean = null;
 			AirlineBean airline = null;
 			AirplaneBean airplane = null;
@@ -336,7 +362,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 					if (airportDeparture.getCity().toLowerCase()
 							.equals(from.toLowerCase())
 							|| airportDestination.getCity().toLowerCase()
-									.equals(to.toLowerCase()))
+							.equals(to.toLowerCase()))
 						flightSegmentBean.setWhichWay(1);
 					else
 						flightSegmentBean.setWhichWay(2);
@@ -347,10 +373,12 @@ public class FlightSegmentDAO extends AbstractDAO {
 				 * "Database found no customer for the given id!"); }
 				 */
 				rs.close();
+				connection.commit();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

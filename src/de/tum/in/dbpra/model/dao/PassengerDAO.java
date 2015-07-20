@@ -9,8 +9,8 @@ import de.tum.in.dbpra.model.bean.PassengerBean;
 
 public class PassengerDAO extends AbstractDAO {
 
-	/***
-	 * @brief insert passengers details for flight reservation
+	/**
+	 *  @brief insert passengers details for flight reservation
 	 * */
 	public PassengerBean createPassenger(String firstName, String lastName,
 			String address, String gender, String nationality,
@@ -26,6 +26,7 @@ public class PassengerDAO extends AbstractDAO {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(query.toString());) {
+			connection.setAutoCommit(false);
 			preparedStatement.setString(1, firstName);
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, address);
@@ -45,10 +46,12 @@ public class PassengerDAO extends AbstractDAO {
 			passengerBean.setCountry(country);
 			passengerBean.setPassengerType(passengerType);
 			passengerBean.setPhoneNumber(phoneNumber);
+			connection.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
+		
 		return passengerBean;
 	}
 
