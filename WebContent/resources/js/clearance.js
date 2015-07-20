@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#check-in-form').submit(function(e) {
+	$('#check-in-formff').submit(function(e) {
 		e.preventDefault();
 		var ticket_num = $("#input-ticket-number").val();
 		var last_name = $("#input-last-name").val();

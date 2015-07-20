@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
-import de.tum.in.dbpra.model.bean.FlightSegmentContainerBean;
 import de.tum.in.dbpra.model.bean.PassengerBean;
 import de.tum.in.dbpra.model.bean.TicketBean;
-import de.tum.in.dbpra.model.bean.TicketFlightSegmentMapperBean;
 import de.tum.in.dbpra.model.dao.TicketDAO;
 import de.tum.in.dbpra.model.dao.TicketFlightSegmentMapperDAO;
 
@@ -26,7 +24,6 @@ public class TicketServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		try {
 			TicketBean ticket = new TicketBean();
@@ -35,6 +32,7 @@ public class TicketServlet extends HttpServlet {
 
 			PassengerBean passenger = (PassengerBean) request.getSession()
 					.getAttribute("passenger");
+			@SuppressWarnings("unchecked")
 			List<FlightSegmentBean> flights = (ArrayList<FlightSegmentBean>) request
 					.getSession().getAttribute("flights");
 

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import de.tum.in.dbpra.model.bean.BoardingPassContainerBean;
 import de.tum.in.dbpra.model.bean.ResponseBean;
 import de.tum.in.dbpra.model.dao.CheckInDAO;
 import de.tum.in.dbpra.model.dao.CheckInDAO.CheckInException;
@@ -41,9 +42,9 @@ public class CheckInServlet extends HttpServlet {
 			CharArrayWriterResponse customResponse = new CharArrayWriterResponse(
 					response);
 			
-			
 			CheckInDAO dao = new CheckInDAO();
-			request.setAttribute("samples", dao.getBoardingPass(ticket_num,lastName ));
+						
+			request.setAttribute("passes", dao.getBoardingPass(ticket_num,lastName ));
 			request.getRequestDispatcher("/Partials/boarding-passes.jsp")
 					.forward(request, customResponse);
 

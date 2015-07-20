@@ -6,6 +6,7 @@ public class BoardingPassBean {
 
 	private int boarding_pass_id;
 	private String issued_by;
+	private String boarding_pass_number;
 	private Timestamp issued_on;
 	private String special_service;
 	private String pass_gate;
@@ -42,6 +43,14 @@ public class BoardingPassBean {
 
 	public void setSpecialService(String special_service) {
 		this.special_service = special_service;
+	}
+	
+	public String getBoardinPassNumber() {
+		return boarding_pass_number;
+	}
+
+	public void setBoardinPassNumber(String boarding_pass_number) {
+		this.boarding_pass_number = boarding_pass_number;
 	}
 	
 	public String getPassGate() {
