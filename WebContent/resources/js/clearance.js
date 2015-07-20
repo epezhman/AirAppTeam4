@@ -2,8 +2,9 @@ $(document).ready(function() {
 	$('#clearance-form').submit(function(e) {
 		e.preventDefault();
 		var airport = $("#airport").val();
-		var clearance_time = $("#input-clearance").val();
-		var airplane_type = $("#airplane-type").val();
+		var input_clearance = $("#input-clearance").val();
+		var flight_segment = $("#flight-segment").val();
+		var controller = $("#controller").val();
 
 		$.ajax({
 			type : "POST",
@@ -11,8 +12,9 @@ $(document).ready(function() {
 			url : "clearance",
 			data : {
 				'airport' : airport,
-				'airplane_type' : airplane_type,
-				'clearance_time' : clearance_time
+				'input_clearance' : input_clearance,
+				'flight_segment' : flight_segment,
+				'controller': controller
 			},
 			cache : false,
 			success : function(responseObj) {

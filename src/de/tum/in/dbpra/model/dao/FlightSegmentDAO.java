@@ -82,9 +82,14 @@ public class FlightSegmentDAO extends AbstractDAO {
 
 				while (resultSample.next()) {
 					FlightSegmentBean bean = new FlightSegmentBean();
-					bean.setId(resultSample.getInt(1));
-					bean.setName(resultSample.getString(2));
-					bean.setDate(resultSample.getDate(3));
+					AirportBean departure = new AirportBean(); 
+					AirportBean arrival = new AirportBean();
+					departure.setAirportId(resultSample.getString(5));
+					arrival.setAirportId(resultSample.getString(6));
+					
+					bean.setFlightSegmentId(resultSample.getInt(1));
+					bean.setAirportDeparture(departure);
+					bean.setAirportDestination(arrival);
 					result.setBean(bean);
 				}
 

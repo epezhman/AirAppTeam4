@@ -36,7 +36,7 @@ public class ClearanceDAO extends AbstractDAO {
 				+ "' Order by rl.runway_id asc";
 		String numberOfRunwaysQuery = "Select runway_id From runway Where airport_id = '"
 				+ airport_id + "' Order by runway_id asc";
-		String InsertClearance = "Insert Into runway_log Values (default,'"
+		String InsertClearance = "Insert Into runway_log (occupy_date_time, flight_controller_id, runway_id, flight_segment_id) Values ('"
 				+ clearance_time + "'," + flight_controller_id + ",?,"
 				+ flight_segment_id + ")";
 

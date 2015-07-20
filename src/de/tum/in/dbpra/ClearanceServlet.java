@@ -3,6 +3,10 @@ package de.tum.in.dbpra;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -40,8 +44,6 @@ public class ClearanceServlet extends HttpServlet {
 			request.setAttribute("airports", dao.getAirports());
 			
 			FlightSegmentDAO dao_flight = new FlightSegmentDAO();	
-			FlightSegmentContainerBean dd = dao_flight.getAllFlights();
-
 			request.setAttribute("all_flights", dao_flight.getAllFlights());
 			
 			FlightControllerDAO dao_controller = new FlightControllerDAO();		
@@ -67,14 +69,18 @@ public class ClearanceServlet extends HttpServlet {
 			response.setContentType("application/json");
 
 			String airport = request.getParameter("airport");
-			String airplane_type = request.getParameter("airplane_type");
-			String clearance_time = request.getParameter("clearance_time");
+			String input_clearance = request.getParameter("input_clearance");
+			String flight_segment = request.getParameter("flight_segment");
+			String controller = request.getParameter("controller");
+
 
 			CharArrayWriterResponse customResponse = new CharArrayWriterResponse(
 					response);
 			ClearanceDAO dao = new ClearanceDAO();
-			//request.setAttribute("samples", dao.getSamples());
-			request.getRequestDispatcher("/Partials/boarding-passes.jsp")
+			
+			
+			request.setAttribute("clear", dao.giveClearance(airport, Integer.parseInt(controller), Integer.parseInt(flight_segment),stringtoDate(input_clearance)));
+			request.getRequestDispatcher("/Partials/clearence-result.jsp")
 					.forward(request, customResponse);
 
 			ResponseBean responseBean = new ResponseBean();
@@ -92,8 +98,26 @@ public class ClearanceServlet extends HttpServlet {
 
 		} catch (IOException  e) {
 			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
+	}
+	
+	public Timestamp stringtoDate(String dateInString){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		Date date=null;
+		try {
+			date = sdf.parse(dateInString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Timestamp departure_time = new java.sql.Timestamp(date.getTime());
+		return departure_time;
 	}
 
 }
