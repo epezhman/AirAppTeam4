@@ -12,7 +12,7 @@ public class TicketDAO extends AbstractDAO {
 
 	
 	public TicketBean storeTicket(TicketBean ticket) throws SQLException{
-		String query = "insert into ticket(ticket_id,issued_by,issued_on,valid_from,valid_till,ticket_type,price,passenger_id) values(?,?,?,?,?,?,?,?)"; 
+		String query = "insert into ticket(ticket_id,issued_by,issued_on,valid_from,valid_till,ticket_type,price,passenger_id,ticket_number) values(?,?,?,?,?,?,?,?,?)"; 
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			connection.setAutoCommit(false);
@@ -24,6 +24,7 @@ public class TicketDAO extends AbstractDAO {
 			preparedStatement.setString(6, ticket.getTicketType());
 			preparedStatement.setInt(7, ticket.getPrice());
 			preparedStatement.setInt(8,ticket.getPassenger().getPassengerId());
+			preparedStatement.setString(9, ticket.getTicket_number());
 			preparedStatement.executeUpdate();
 			connection.commit();
 			return ticket;

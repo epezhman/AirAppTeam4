@@ -30,8 +30,6 @@ public class TicketServlet extends HttpServlet {
 			PassengerBean passenger = (PassengerBean)request.getSession().getAttribute("passenger");
 			FlightSegmentBean flightsegment = (FlightSegmentBean) request.getSession().getAttribute("flightselected");
 			
-			//System.out.println(flightsegment.getFlightSegmentId());
-			
 			ticket.setIssuedBy(flightsegment.getAirline().getAirlineName());
 			ticket.setTicketId(ticketdao.getMaxTicketID()+1);
 			//ticket.setIssuedBy("me");
@@ -39,8 +37,10 @@ public class TicketServlet extends HttpServlet {
 			ticket.setPassenger(passenger);
 			ticket.setTicketType(passenger.getPassengerType());
 			ticket.setValidFrom(new Timestamp(date.getTime()));
-			/*Random r = new Random();
-			 int price = r.nextInt((1000 - 200) + 1) + 200;*/
+			Random r = new Random();
+			 int p = r.nextInt((1000 - 200) + 1) + 200;
+			 String ticket_number = flightsegment.getFlightNumber().concat(Integer.toString(p));
+			 ticket.setTicket_number(ticket_number);
 			ticket.setPrice(flightsegment.getPrice());
 			//increasing date to get valid till date	
 			 Calendar c = Calendar.getInstance(); 

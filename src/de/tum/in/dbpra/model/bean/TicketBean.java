@@ -12,6 +12,7 @@ public class TicketBean {
 	private String ticket_type;
 	private int price;
 	private PassengerBean passenger;
+	private String ticket_number;
 
 	public int getTicketId() {
 		return ticket_id;
@@ -75,6 +76,14 @@ public class TicketBean {
 
 	public void setPassenger(PassengerBean passenger) {
 		this.passenger = passenger;
+	}
+
+	public String getTicket_number() {
+		return ticket_number;
+	}
+
+	public void setTicket_number(String ticket_number) {
+		this.ticket_number = ticket_number;
 	}
 	
 }

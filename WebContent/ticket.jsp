@@ -34,8 +34,8 @@
                     <tr>
                     <td>Ticket ID</td>
                     <td>${ticket.getTicketId()}</td>
-                    <td>&nbsp; </td>
-                    <td>&nbsp; </td>
+                    <td>Ticket Number </td>
+                    <td>${ticket.getTicket_number()} </td>
                    </tr>
                    <tr>
                     <td> Issued by </td>
