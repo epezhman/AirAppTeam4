@@ -27,8 +27,9 @@
 					</div>
 					
 					<table class="table table-condensed">
-						<caption> <strong><span class="glyphicon glyphicon-bookmark"
-							aria-hidden="true"></span> Ticket Details</strong></caption>
+						<caption> <strong><span
+							class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Ticket Details</strong>
+					</caption>
                     
 	                    <tbody>
 		                    <tr>
@@ -58,8 +59,10 @@
                     </table>
 					
 					<table class="table table-condensed">
-						<caption><strong> <span class="glyphicon glyphicon-user"
-							aria-hidden="true"></span>  Passenger Details</strong></caption>
+						<caption>
+						<strong> <span class="glyphicon glyphicon-user"
+							aria-hidden="true"></span>  Passenger Details</strong>
+					</caption>
                  
 	                    <tbody>
 		                    <tr>
@@ -82,9 +85,13 @@
 						                                    
 	                    <c:forEach var="flightselected" items="${flights}">
 	                    <table class="table table-condensed">
-                   			<caption><strong>Flight ${count}</strong></caption>
+                   			<caption>
+							<strong>Flight ${count}</strong>
+						</caption>
 		                    <thead>                                        								
 								
+						
+						
 						<tbody>
 			                    	<tr>
 										<td><strong>Flight Number</strong></td>
@@ -93,13 +100,13 @@
 									</tr>
 			                    	<tr>
 					                  <td><strong>From </strong></td>
-					                  <td>${flightselected.getAirportDeparture().getAirportId()} </td> 
+					                  <td> ${flightselected.getAirportDeparture().getCity()}  - ${flightselected.getAirportDeparture().getAirportId()} </td> 
 					                  <td><strong>Departure Date</strong> </td>
 					                  <td> ${flightselected.getDepartureTime()} </td>             		
 			                   		</tr>
 			                        <tr>                  
 					                    <td><strong>To</strong></td>
-					            		<td>${flightselected.getAirportDestination().getAirportId()} </td>
+					            		<td>${flightselected.getAirportDestination().getCity()} - ${flightselected.getAirportDestination().getAirportId()} </td>
 					            		<td><strong>Arrival Date</strong></td>
 					            		<td> ${flightselected.getArrivalTime()}</td>
 			                    	</tr>
@@ -109,12 +116,24 @@
 						scope="page" />
 		                </c:forEach>	                  
                     <button type="button" class="btn btn-primary"
-					onclick="window.print()">Print Ticket</button>                                       
+					onclick="logout()" id="logout">Print Ticket</button>                                  
+
             </div>
         </div>
 
       </jsp:attribute>
 </t:genericpage>
+<script>
+	function logout() {
+		$.ajax({
+			type : "POST",
+			url : "ticket",
+			success : function(data) {
+				window.print();
+			}
+		});
+	}
+</script>
 
 
 
