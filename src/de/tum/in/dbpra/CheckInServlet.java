@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import de.tum.in.dbpra.model.bean.BoardingPassContainerBean;
 import de.tum.in.dbpra.model.bean.ResponseBean;
 import de.tum.in.dbpra.model.dao.CheckInDAO;
 import de.tum.in.dbpra.model.dao.CheckInDAO.CheckInException;

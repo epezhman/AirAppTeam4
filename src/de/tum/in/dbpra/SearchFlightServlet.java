@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -45,7 +44,6 @@ public class SearchFlightServlet extends HttpServlet {
 		FlightSegmentDAO flightSegmentDAO = new FlightSegmentDAO();
 		List<FlightSegmentBean> searchFlightList = null;
 		String json = null;
-		HttpSession session= request.getSession();
 		try {
 			searchFlightList = flightSegmentDAO.searchFlight(to, from, toDate,
 					fromDate, ticketClass, noofPass, isOneway);

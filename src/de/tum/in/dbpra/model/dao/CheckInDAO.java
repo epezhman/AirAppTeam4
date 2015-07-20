@@ -35,6 +35,8 @@ public class CheckInDAO extends AbstractDAO {
 
 		try {
 			Connection connection = getConnection();
+			connection.setAutoCommit(false);
+			
 			java.util.Date date = new java.util.Date();
 			Random r = new Random();
 
@@ -158,8 +160,7 @@ public class CheckInDAO extends AbstractDAO {
 				result.setBean(bean);
 			}
 
-			result_ticket.close();
-			result_ticket_mappers.close();
+			connection.commit();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
