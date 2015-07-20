@@ -110,11 +110,11 @@
 	}
 
 	function createSearchHeader(trSearchHeader) {
-		trSearchHeader = document.createElement('TH');
+		trSearchHeader = document.createElement('TR');
 		var headerFlihgt = new Array();
 		headerFlihgt.push("First Name", "Last Name", "Gender", "Nationality");
 		for (var i = 0; i < headerFlihgt.length; i++) {
-			td = document.createElement('TD');
+			td = document.createElement('TH');
 			td.appendChild(document.createTextNode(headerFlihgt[i]));
 			trSearchHeader.appendChild(td);
 		}
@@ -178,7 +178,7 @@
 				<div class="row">
 					<div class="col-md-5">
 						<button type="button" class="btn btn-primary"
-							onClick="searchPassenger()">Search Flight</button>
+							onClick="searchPassenger()">Search Passeger</button>
 					</div>
 				</div>
 			</div>
