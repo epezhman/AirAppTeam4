@@ -97,7 +97,7 @@ public class AirportDAO extends AbstractDAO {
 
 	public AirportContainerBean getAirports() {
 
-		String sampleQuery = "SELECT id, name FROM airport";
+		String sampleQuery = "SELECT airport_id, name FROM airport";
 		AirportContainerBean airports = new AirportContainerBean();
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatementSample = connection

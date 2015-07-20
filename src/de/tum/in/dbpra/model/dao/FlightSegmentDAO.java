@@ -11,6 +11,7 @@ import de.tum.in.dbpra.model.bean.AirlineBean;
 import de.tum.in.dbpra.model.bean.AirplaneBean;
 import de.tum.in.dbpra.model.bean.AirportBean;
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
+import de.tum.in.dbpra.model.bean.FlightSegmentContainerBean;
 import de.tum.in.dbpra.model.dao.AirlineDAO.AirlineNotFoundException;
 import de.tum.in.dbpra.model.dao.AirportDAO.AirportNotFoundException;
 
@@ -57,6 +58,45 @@ public class FlightSegmentDAO extends AbstractDAO {
 			throw e;
 		}
 
+	}
+	
+	public FlightSegmentContainerBean getAllFlights()
+			throws AirportNotFoundException, AirlineNotFoundException,
+			SQLException {
+		String query = "select flight_segment_id,departure_time,arrival_time,airline_id,airport_departure_id,airport_destination_id,price from flight_segment";
+		FlightSegmentContainerBean result = new FlightSegmentContainerBean();
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(query);) {
+
+			try (ResultSet resultSet = preparedStatement.executeQuery();) {
+				if (resultSet.next()) {
+					FlightSegmentBean flight = new FlightSegmentBean();
+					flight.setFlightSegmentId(resultSet.getInt(1));
+					flight.setDepartureTime(resultSet.getTimestamp(2));
+					flight.setArrivalTime(resultSet.getTimestamp(3));
+					AirlineBean airline = new AirlineBean();
+					AirlineDAO airlinedao = new AirlineDAO();
+					airline.setAirlineId(resultSet.getInt(4));
+					flight.setAirline(airlinedao.getAirlineByID(airline));
+					AirportBean airport = new AirportBean();
+					AirportDAO airportdao = new AirportDAO();
+					airport.setAirportId(resultSet.getString(5));
+					flight.setAirportDeparture(airportdao
+							.getAirportByID(airport));
+					airport = new AirportBean();
+					airport.setAirportId(resultSet.getString(6));
+					flight.setAirportDestination(airportdao
+							.getAirportByID(airport));
+					flight.setPrice(resultSet.getInt(7));
+					result.setBean(flight);
+
+				}
+			}
+		} catch (SQLException | AirportNotFoundException | AirlineNotFoundException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public FlightSegmentBean getFlightByFlightNumber(FlightSegmentBean flight)

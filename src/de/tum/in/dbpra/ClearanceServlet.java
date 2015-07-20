@@ -15,31 +15,48 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import de.tum.in.dbpra.model.bean.AirportContainerBean;
+import de.tum.in.dbpra.model.bean.FlightControllerContainerBean;
+import de.tum.in.dbpra.model.bean.FlightSegmentContainerBean;
 import de.tum.in.dbpra.model.bean.ResponseBean;
+import de.tum.in.dbpra.model.dao.AirlineDAO.AirlineNotFoundException;
 import de.tum.in.dbpra.model.dao.AirportDAO;
 import de.tum.in.dbpra.model.dao.AirportDAO.AirportNotFoundException;
+import de.tum.in.dbpra.model.dao.ClearanceDAO;
+import de.tum.in.dbpra.model.dao.FlightControllerDAO;
+import de.tum.in.dbpra.model.dao.FlightControllerDAO.FlightControllerException;
+import de.tum.in.dbpra.model.dao.FlightSegmentDAO;
 import de.tum.in.dbpra.model.dao.SampleDAO;
 import de.tum.in.dbpra.model.dao.SampleDAO.SampleException;
 
 @WebServlet("/ClearanceServlet")
 public class ClearanceServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		AirportDAO dao = new AirportDAO();
-		request.setAttribute("airports", dao.getAirports());
+			HttpServletResponse response) throws ServletException, IOException {		
+			
 		try {
-			SampleDAO dao2 = new SampleDAO();
-			request.setAttribute("samples", dao2.getSamples());
+			AirportDAO dao = new AirportDAO();		
+			request.setAttribute("airports", dao.getAirports());
+			
+			FlightSegmentDAO dao_flight = new FlightSegmentDAO();	
+			FlightSegmentContainerBean dd = dao_flight.getAllFlights();
 
-		} catch (Throwable e) {
-			request.setAttribute("error", e.getMessage());
+			request.setAttribute("all_flights", dao_flight.getAllFlights());
+			
+			FlightControllerDAO dao_controller = new FlightControllerDAO();		
+			request.setAttribute("controllers", dao_controller.getFlightControllers());
+			
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("/clearance.jsp");
+			dispatcher.forward(request, response);
+			
+		} catch (SQLException | AirportNotFoundException
+				| AirlineNotFoundException |FlightControllerException e) {
+			e.printStackTrace();
 		}
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/clearance.jsp");
-		dispatcher.forward(request, response);
+		
+		
 		
 	}
 
@@ -49,13 +66,14 @@ public class ClearanceServlet extends HttpServlet {
 			// set response type
 			response.setContentType("application/json");
 
-			// String ticket_num = request.getParameter("ticket_num");
-			// String lastName = request.getParameter("last_name");
+			String airport = request.getParameter("airport");
+			String airplane_type = request.getParameter("airplane_type");
+			String clearance_time = request.getParameter("clearance_time");
 
 			CharArrayWriterResponse customResponse = new CharArrayWriterResponse(
 					response);
-			SampleDAO dao = new SampleDAO();
-			request.setAttribute("samples", dao.getSamples());
+			ClearanceDAO dao = new ClearanceDAO();
+			//request.setAttribute("samples", dao.getSamples());
 			request.getRequestDispatcher("/Partials/boarding-passes.jsp")
 					.forward(request, customResponse);
 
@@ -72,7 +90,7 @@ public class ClearanceServlet extends HttpServlet {
 			out.write(json);
 			System.out.println(json);
 
-		} catch (IOException | SQLException | SampleException e) {
+		} catch (IOException  e) {
 			e.printStackTrace();
 		}
 

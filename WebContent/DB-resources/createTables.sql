@@ -75,7 +75,6 @@ CREATE TABLE flight_segment (
 );
 
 
-
 CREATE TABLE ticket (
     ticket_id serial NOT NULL,
     ticket_number text NOT NULL,
@@ -121,6 +120,7 @@ CREATE TABLE flight_controller (
     primary key (flight_controller_id),
     foreign key (employee_id) references employee (employee_id) ON UPDATE NO ACTION ON DELETE CASCADE
 );
+
 
 
 CREATE TABLE luggage_delivery (
@@ -226,3 +226,13 @@ Insert into runway_log values
 ('5','2015-07-20 13:30:00', NULL, '1', NULL),
 ('6','2015-07-20 14:45:00', NULL, '2', NULL),
 ('7','2015-07-20 15:15:00', NULL, '1', NULL);
+
+Insert into employee values
+('1','Barak','Obama','Around the Corner','123456'),
+('2','Angela','Merkel','Berlin','123456'),
+('3','King','Ludwig','Neuschwanstein','123456');
+
+Insert into flight_controller values
+('1','1'),
+('2','2'),
+('3','3');

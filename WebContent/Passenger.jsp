@@ -70,41 +70,49 @@
 
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="./SearchFlight.jsp"> <span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air App Team 4</a>
-			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="./SearchFlight.jsp">Book a Flight</a></li>
-					<li><a href="./checkIn.jsp">Check In Online!</a></li>
-					<li><a href="./clearance.jsp">Runway Clearance</a></li>
-					<li role="presentation" class="dropdown"><a
-						class="dropdown-toggle" data-toggle="dropdown" href="#"
-						role="button" aria-haspopup="true" aria-expanded="false">
-							Insert <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="./airport.jsp">Airport</a></li>
-							<li><a href="./airline.jsp">Airline</a></li>
-							<li><a href="./airplane.jsp">Airplane</a></li>
-							<li><a href="./flight_segment.jsp">Flight Segment</a></li>
-
-						</ul></li>
-				</ul>
-			</div>
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./SearchFlight.jsp"> <span
+				class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air App
+				Team 4
+			</a>
 		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="./SearchFlight.jsp">Book a Flight</a></li>
+				<li><a href="./check_in">Check In Online!</a></li>
+				<li><a href="./clearance">Runway Clearance</a></li>
+				<li><a href="./search_passenger.jsp">Search Passenger</a></li>
+
+				<li role="presentation" class="dropdown"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">
+						Insert <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="./airport.jsp">Airport</a></li>
+						<li><a href="./airline.jsp">Airline</a></li>
+						<li><a href="./airplane.jsp">Airplane</a></li>
+						<li><a href="./flight_segment.jsp">Flight Segment</a></li>
+
+					</ul></li>
+			</ul>
+		</div>
+	</div>
 	</nav>
 	<div class="container main">
 
 		<div class="well well-lg">
-			<h3> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Passenger Details</h3>
+			<h3>
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				Passenger Details
+			</h3>
 
 			<div class="row form-inline">
 				<div class="col-md-2">

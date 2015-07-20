@@ -1,16 +1,18 @@
 $(document).ready(function() {
-	$('#check-in-formff').submit(function(e) {
+	$('#clearance-form').submit(function(e) {
 		e.preventDefault();
-		var ticket_num = $("#input-ticket-number").val();
-		var last_name = $("#input-last-name").val();
+		var airport = $("#airport").val();
+		var clearance_time = $("#input-clearance").val();
+		var airplane_type = $("#airplane-type").val();
 
 		$.ajax({
 			type : "POST",
 			dataType : "json",
-			url : "check_in",
+			url : "clearance",
 			data : {
-				'ticket_num' : ticket_num,
-				'last_name' : last_name
+				'airport' : airport,
+				'airplane_type' : airplane_type,
+				'clearance_time' : clearance_time
 			},
 			cache : false,
 			success : function(responseObj) {
@@ -20,7 +22,7 @@ $(document).ready(function() {
 				arr = JSON.parse(parseObj);
 
 				if (arr.success) {
-					$("#print-boarding-pass").html(arr.response);
+					$("#clear-runways").html(arr.response);
 
 				}
 			}

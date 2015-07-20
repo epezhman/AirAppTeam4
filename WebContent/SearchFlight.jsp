@@ -306,8 +306,9 @@
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="./SearchFlight.jsp">Book a Flight</a></li>
-					<li><a href="./checkIn.jsp">Check In Online!</a></li>
-					<li><a href="./clearance.jsp">Runway Clearance</a></li>
+					<li><a href="./check_in">Check In Online!</a></li>
+					<li><a href="./clearance">Runway Clearance</a></li>
+					<li><a href="./search_passenger.jsp">Search Passenger</a></li>
 					<li role="presentation" class="dropdown"><a
 						class="dropdown-toggle" data-toggle="dropdown" href="#"
 						role="button" aria-haspopup="true" aria-expanded="false">

@@ -40,13 +40,17 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="./SearchFlight.jsp"> <span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air App Team 4</a>
+				<a class="navbar-brand" href="./SearchFlight.jsp"> <span
+					class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air
+					App Team 4
+				</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="./SearchFlight.jsp">Book a Flight</a></li>
-					<li><a href="./checkIn.jsp">Check In Online!</a></li>
-					<li><a href="./clearance.jsp">Runway Clearance</a></li>
+					<li><a href="./check_in">Check In Online!</a></li>
+					<li><a href="./clearance">Runway Clearance</a></li>
+					<li><a href="./search_passenger.jsp">Search Passenger</a></li>
 					<li role="presentation" class="dropdown"><a
 						class="dropdown-toggle" data-toggle="dropdown" href="#"
 						role="button" aria-haspopup="true" aria-expanded="false">
