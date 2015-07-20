@@ -185,7 +185,9 @@
 			oImg.setAttribute('src', './resources/imgs/' + airline_name
 					+ '.png');
 			oImg.setAttribute('alt', 'na');
-			oImg.style.width = '60px';
+			oImg.style.width = '70px';
+			oImg.style.height = '70px';
+
 			tdHeaderPic.appendChild(oImg);
 			trHeader.appendChild(tdHeaderPic);
 
@@ -291,47 +293,47 @@
 </head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="./home.html"> Air App</a>
-		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="./home.html">Home</a></li>
-				<!-- <li><a href="./sample">Sample</a></li> -->
-				<li><a href="./check_in">CheckIn</a></li>
-				<li role="presentation" class="dropdown"><a
-					class="dropdown-toggle" data-toggle="dropdown" href="#"
-					role="button" aria-haspopup="true" aria-expanded="false">
-						Insert <span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu">
-						<li><a href="./airport.jsp">Airport</a></li>
-						<li><a href="./airline.jsp">Airline</a></li>
-						<li><a href="./airplane.jsp">Airplane</a></li>
-						<li><a href="./flight_segment.jsp">Flight Segment</a></li>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./SearchFlight.jsp"> <span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air App Team 4</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="./SearchFlight.jsp">Book a Flight</a></li>
+					<li><a href="./checkIn.jsp">Check In Online!</a></li>
+					<li><a href="./clearance.jsp">Runway Clearance</a></li>
+					<li role="presentation" class="dropdown"><a
+						class="dropdown-toggle" data-toggle="dropdown" href="#"
+						role="button" aria-haspopup="true" aria-expanded="false">
+							Insert <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="./airport.jsp">Airport</a></li>
+							<li><a href="./airline.jsp">Airline</a></li>
+							<li><a href="./airplane.jsp">Airplane</a></li>
+							<li><a href="./flight_segment.jsp">Flight Segment</a></li>
 
-					</ul></li>
-			</ul>
+						</ul></li>
+				</ul>
+			</div>
 		</div>
-	</div>
 	</nav>
 
 	<div class="container main">
 
 		<div class="jumbotron">
-			<h1>Air Traffic App Team 4</h1>
+			<h1> <span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air Traffic App Team 4</h1>
 		</div>
 
 		<div class="well well-lg">
 
-			<h3>Search Flight</h3>
+			<h3> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Flight</h3>
 
 			<div class="row form-inline">
 				<div class="col-md-1">
@@ -402,13 +404,13 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<div class="form-group">
-						<label>Num of Passengers</label>
+						<label>Passengers</label>
 					</div>
 
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div class="form-group">
 						<select id="noofPass" class="form-control">
 							<%
@@ -424,7 +426,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2 col-md-offset-8">
+				<div class="col-md-2 col-md-offset-9">
 					<button type="button" class="btn btn-primary"
 						onClick="searchFlights()">Search Flight</button>
 				</div>

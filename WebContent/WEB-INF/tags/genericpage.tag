@@ -22,8 +22,12 @@
 <script src="./resources/js/bootstrap.min.js"></script>
 
 <script src="./resources/js/jquery.datetimepicker.js"></script>
+<script src="./resources/js/jquery.validate.js"></script>
+<script src="./resources/js/additional-methods.js"></script>
 
 <script src="./resources/js/check-in.js"></script>
+<script src="./resources/js/clearance.js"></script>
+
 </head>
 
 <body>
@@ -36,14 +40,14 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="./home.html">Air App</a>
+				<a class="navbar-brand" href="./SearchFlight.jsp"> <span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Air App Team 4</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="./home.html">Home</a></li>
-					<!-- <li><a href="./sample">Sample</a></li> -->
-					<li><a href="./check_in">CheckIn</a></li>
-<li role="presentation" class="dropdown"><a
+					<li><a href="./SearchFlight.jsp">Book a Flight</a></li>
+					<li><a href="./checkIn.jsp">Check In Online!</a></li>
+					<li><a href="./clearance.jsp">Runway Clearance</a></li>
+					<li role="presentation" class="dropdown"><a
 						class="dropdown-toggle" data-toggle="dropdown" href="#"
 						role="button" aria-haspopup="true" aria-expanded="false">
 							Insert <span class="caret"></span>
@@ -54,7 +58,7 @@
 							<li><a href="./airplane.jsp">Airplane</a></li>
 							<li><a href="./flight_segment.jsp">Flight Segment</a></li>
 
-						</ul></li>				
+						</ul></li>
 				</ul>
 			</div>
 		</div>

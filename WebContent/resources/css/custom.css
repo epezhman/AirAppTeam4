@@ -10,3 +10,7 @@ body {
 .row.form-inline  .form-group{
 	padding: 10px;
 }
+
+.row.form-inline  .form-control{
+	width: 300px !important;
+}

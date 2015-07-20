@@ -62,10 +62,7 @@
       </div>
       </jsp:attribute>
 </t:genericpage>
-<script src="./resources/js/jquery.validate.js"></script>
-<script src="./resources/js/additional-methods.js">
-	
-</script>
+
 <script>
 	$(document).ready(function() {
 

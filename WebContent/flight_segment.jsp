@@ -14,7 +14,7 @@
                         Insertion was successful.
                     </div>
                 </div>
-                <form id="insertflightsegment" class="form-horizontal">
+                <form id="insertflightsegment" >
 
                     <h3>Add new flight segment</h3>
                     
@@ -97,8 +97,6 @@
       </jsp:attribute>
 </t:genericpage>
 
-<script src="./resources/js/jquery.validate.js"></script>
-<script src="./resources/js/additional-methods.js"></script>
 
 <script>
 	$('#datetimepicker').datetimepicker();

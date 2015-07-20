@@ -3,6 +3,7 @@ package de.tum.in.dbpra;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import de.tum.in.dbpra.model.bean.AirportContainerBean;
 import de.tum.in.dbpra.model.bean.ResponseBean;
+import de.tum.in.dbpra.model.dao.AirportDAO;
+import de.tum.in.dbpra.model.dao.AirportDAO.AirportNotFoundException;
 import de.tum.in.dbpra.model.dao.SampleDAO;
 import de.tum.in.dbpra.model.dao.SampleDAO.SampleException;
 
@@ -24,10 +28,19 @@ public class ClearanceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		AirportDAO dao = new AirportDAO();
+		request.setAttribute("airports", dao.getAirports());
+		try {
+			SampleDAO dao2 = new SampleDAO();
+			request.setAttribute("samples", dao2.getSamples());
 
+		} catch (Throwable e) {
+			request.setAttribute("error", e.getMessage());
+		}
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/clearance.jsp");
 		dispatcher.forward(request, response);
+		
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,8 +49,8 @@ public class ClearanceServlet extends HttpServlet {
 			// set response type
 			response.setContentType("application/json");
 
-		//String ticket_num = request.getParameter("ticket_num");
-			//String lastName = request.getParameter("last_name");
+			// String ticket_num = request.getParameter("ticket_num");
+			// String lastName = request.getParameter("last_name");
 
 			CharArrayWriterResponse customResponse = new CharArrayWriterResponse(
 					response);
