@@ -3,15 +3,16 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.List"%>
 <%@page import="de.tum.in.dbpra.model.bean.TicketBean"%>
 <%@page import="de.tum.in.dbpra.model.bean.PassengerBean"%>
-<%@page import="de.tum.in.dbpra.model.bean.FlightSegmentBean"%>
+ <%@page import="de.tum.in.dbpra.model.bean.FlightSegmentBean"%> 
 <jsp:useBean id="passenger" scope="session"
 	class="de.tum.in.dbpra.model.bean.PassengerBean" />
 <jsp:useBean id="ticket" scope="session"
 	class="de.tum.in.dbpra.model.bean.TicketBean" />
-<jsp:useBean id="flightselected" scope="session"
-	class="de.tum.in.dbpra.model.bean.FlightSegmentBean" />
+
 
 <t:genericpage>
 	<jsp:attribute name="body">	
@@ -87,6 +88,7 @@
                     
                     </thead>
                     <tbody>
+                    <c:forEach var="flightselected" items="${flights}">
                     <tr><td>Flight Number</td><td>${flightselected.getFlightNumber() }
                     </td></tr>
                     <tr>
@@ -103,6 +105,7 @@
             		<td>Arrival Date</td>
             		<td> ${flightselected.getArrivalTime()}</td>
                     </tr>
+                    		</c:forEach>
                     </tbody>
                     </table>
                     <button type="button" class="btn btn-primary"

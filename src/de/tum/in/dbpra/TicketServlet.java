@@ -2,7 +2,9 @@ package de.tum.in.dbpra;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
@@ -12,9 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
+import de.tum.in.dbpra.model.bean.FlightSegmentContainerBean;
 import de.tum.in.dbpra.model.bean.PassengerBean;
 import de.tum.in.dbpra.model.bean.TicketBean;
+import de.tum.in.dbpra.model.bean.TicketFlightSegmentMapperBean;
 import de.tum.in.dbpra.model.dao.TicketDAO;
+import de.tum.in.dbpra.model.dao.TicketFlightSegmentMapperDAO;
 
 @SuppressWarnings("serial")
 public class TicketServlet extends HttpServlet {
@@ -28,20 +33,28 @@ public class TicketServlet extends HttpServlet {
 			java.util.Date date= new java.util.Date();
 						
 			PassengerBean passenger = (PassengerBean)request.getSession().getAttribute("passenger");
-			FlightSegmentBean flightsegment = (FlightSegmentBean) request.getSession().getAttribute("flightselected");
+			List<FlightSegmentBean> flights = (ArrayList<FlightSegmentBean>)request.getSession().getAttribute("flights");
 			
-			ticket.setIssuedBy(flightsegment.getAirline().getAirlineName());
+			TicketFlightSegmentMapperDAO mapperdao = new TicketFlightSegmentMapperDAO();
+			int totalprice = 0;			
+			if(flights.size()>1){
+			for(int i=0; i<flights.size(); i++){
+				totalprice = totalprice + flights.get(i).getPrice();
+			}
+			} else
+				totalprice = flights.get(0).getPrice();
+			
+			ticket.setIssuedBy(flights.get(0).getAirline().getAirlineName());
+			Random r = new Random();
+			 int p = r.nextInt((1000 - 200) + 1) + 200;
+			 String ticket_number = flights.get(0).getFlightNumber().concat(Integer.toString(p));
+			 ticket.setTicket_number(ticket_number);
 			ticket.setTicketId(ticketdao.getMaxTicketID()+1);
-			//ticket.setIssuedBy("me");
 			ticket.setIssuedOn(new Timestamp(date.getTime()));
 			ticket.setPassenger(passenger);
 			ticket.setTicketType(passenger.getPassengerType());
 			ticket.setValidFrom(new Timestamp(date.getTime()));
-			Random r = new Random();
-			 int p = r.nextInt((1000 - 200) + 1) + 200;
-			 String ticket_number = flightsegment.getFlightNumber().concat(Integer.toString(p));
-			 ticket.setTicket_number(ticket_number);
-			ticket.setPrice(flightsegment.getPrice());
+			ticket.setPrice(totalprice);
 			//increasing date to get valid till date	
 			 Calendar c = Calendar.getInstance(); 
 			 c.setTime(date); 
@@ -50,6 +63,12 @@ public class TicketServlet extends HttpServlet {
 			 ticket.setValidTill(new Timestamp(date.getTime()));
 
 			 ticketdao.storeTicket(ticket);
+			 
+			 for(int i=0; i<flights.size(); i++){
+				 mapperdao.insertMappings(ticket, flights.get(i));
+				}
+			 	
+			 
 			 
 			 request.setAttribute("ticket", ticket);
 			 RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket.jsp");
