@@ -11,6 +11,8 @@ import de.tum.in.dbpra.model.bean.AirlineBean;
 import de.tum.in.dbpra.model.bean.AirplaneBean;
 import de.tum.in.dbpra.model.bean.AirportBean;
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
+import de.tum.in.dbpra.model.dao.AirlineDAO.AirlineNotFoundException;
+import de.tum.in.dbpra.model.dao.AirportDAO.AirportNotFoundException;
 
 public class FlightSegmentDAO extends AbstractDAO {
 
@@ -25,7 +27,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 	 */
 	
 	public Boolean addflight_segment(FlightSegmentBean flight_segment) throws SQLException{
-		String query = "insert into flight_segment(flight_segment_id,duration_minutes,number_of_miles,departure_time,arrival_time,airline_id,airport_departure_id,airport_destination_id,airplane_id, flight_number, price) values(?,?,?,?,?,?,?,?,?,?,?)"; 
+		String query = "insert into flight_segment(flight_segment_id,duration_minutes,number_of_miles,departure_time,arrival_time,airline_id,airport_departure_id,airport_destination_id,airplane_id) values(?,?,?,?,?,?,?,?,?)"; 
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			connection.setAutoCommit(false);
@@ -38,8 +40,6 @@ public class FlightSegmentDAO extends AbstractDAO {
 			preparedStatement.setString(7,flight_segment.getAirportDeparture().getAirportId());
 			preparedStatement.setString(8, flight_segment.getAirportDestination().getAirportId());
 			preparedStatement.setInt(9,flight_segment.getAirplane().getAirplaneId());
-			preparedStatement.setString(10,flight_segment.getFlightNumber());
-			preparedStatement.setInt(11, Integer.parseInt(flight_segment.getPrice().replace("\"", "")));
 			preparedStatement.executeUpdate();
 			connection.commit();
 			return true;
@@ -50,7 +50,39 @@ public class FlightSegmentDAO extends AbstractDAO {
 
 	}
 	
-	
+	public FlightSegmentBean getFlightByFlightNumber(FlightSegmentBean flight) throws AirportNotFoundException, AirlineNotFoundException, SQLException{
+		String query = "select flight_segment_id,departure_time,arrival_time,airline_id,airport_departure_id,airport_destination_id,price from flight_segment where flight_number=?"; 
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			preparedStatement.setString(1, flight.getFlightNumber());
+		
+			try (ResultSet resultSet = preparedStatement.executeQuery();) {
+				if (resultSet.next()) {
+					
+					flight.setFlightSegmentId(resultSet.getInt(1));
+					flight.setDepartureTime(resultSet.getTimestamp(2));
+					flight.setArrivalTime(resultSet.getTimestamp(3));
+					AirlineBean airline = new AirlineBean();
+					AirlineDAO airlinedao = new AirlineDAO();
+					airline.setAirlineId(resultSet.getInt(4));
+					flight.setAirline(airlinedao.getAirlineByID(airline));
+					AirportBean airport = new AirportBean();
+					AirportDAO airportdao = new AirportDAO();
+					airport.setAirportId(resultSet.getString(5));
+					flight.setAirportDeparture(airportdao.getAirportByID(airport));
+					airport = new AirportBean();
+					airport.setAirportId(resultSet.getString(6));
+					flight.setAirportDestination(airportdao.getAirportByID(airport));
+					flight.setPrice(resultSet.getInt(7));
+					
+				}
+			return flight;
+		}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	/***
 	 * @brief method to check whether a direct flight is available for user preferences
 	 *  if not, it will check connecting flight for user preferences
@@ -246,7 +278,7 @@ public class FlightSegmentDAO extends AbstractDAO {
 					airplane.setAirplaneType(rs.getString("airplanetype"));
 					flightSegmentBean.setAirplane(airplane);
 					
-					flightSegmentBean.setPrice(rs.getString("price"));
+					flightSegmentBean.setPrice(rs.getInt("price"));
 					flightSegmentBean.setFlightNumber(rs.getString("flight_number"));
 					
 					if(airportDeparture.getCity().toLowerCase().equals(from.toLowerCase()) || airportDestination.getCity().toLowerCase().equals(to.toLowerCase()))

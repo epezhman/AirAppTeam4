@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.tum.in.dbpra.model.bean.FlightSegmentBean;
 import de.tum.in.dbpra.model.bean.PassengerBean;
 import de.tum.in.dbpra.model.bean.TicketBean;
 import de.tum.in.dbpra.model.dao.TicketDAO;
@@ -27,21 +28,20 @@ public class TicketServlet extends HttpServlet {
 			java.util.Date date= new java.util.Date();
 						
 			PassengerBean passenger = (PassengerBean)request.getSession().getAttribute("passenger");
-			//FlightSegmentBean flightsegment = (FlightSegmentBean) request.getSession().getAttribute("flight");
-			System.out.println(passenger.getFirstName());
-			System.out.println(passenger.getPassengerId());
+			FlightSegmentBean flightsegment = (FlightSegmentBean) request.getSession().getAttribute("flightselected");
+			
 			//System.out.println(flightsegment.getFlightSegmentId());
 			
-			//ticket.setIssuedBy(flightsegment.getAirline().getAirlineName());
+			ticket.setIssuedBy(flightsegment.getAirline().getAirlineName());
 			ticket.setTicketId(ticketdao.getMaxTicketID()+1);
-			ticket.setIssuedBy("me");
+			//ticket.setIssuedBy("me");
 			ticket.setIssuedOn(new Timestamp(date.getTime()));
 			ticket.setPassenger(passenger);
 			ticket.setTicketType(passenger.getPassengerType());
 			ticket.setValidFrom(new Timestamp(date.getTime()));
-			Random r = new Random();
-			 int price = r.nextInt((1000 - 200) + 1) + 200;
-			ticket.setPrice(price);
+			/*Random r = new Random();
+			 int price = r.nextInt((1000 - 200) + 1) + 200;*/
+			ticket.setPrice(flightsegment.getPrice());
 			//increasing date to get valid till date	
 			 Calendar c = Calendar.getInstance(); 
 			 c.setTime(date); 

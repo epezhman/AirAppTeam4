@@ -69,7 +69,7 @@ public class FlightSegmentservlet extends HttpServlet {
 
 			flight_segment.setFlightNumber(rootObj.get("flight_number").getAsString());
 			
-			flight_segment.setPrice(rootObj.get("price").getAsString());
+			flight_segment.setPrice(rootObj.get("price").getAsInt());
 
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
