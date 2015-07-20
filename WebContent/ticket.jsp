@@ -93,6 +93,7 @@
                     </td></tr>
                     <tr>
                   <td>From </td>
+                  <td>${flightselected.getAirportDeparture().getCity()}</td>
                   <td>${flightselected.getAirportDeparture().getAirportId()} </td> 
                  <td>Departure Date </td>
                   <td> ${flightselected.getDepartureTime()} </td> 
@@ -101,11 +102,13 @@
                        <tr>
                   
                   <td>To</td>
+                  <td>${flightselected.getAirportDestination().getCity()}</td>
             		<td>${flightselected.getAirportDestination().getAirportId()} </td>
             		<td>Arrival Date</td>
             		<td> ${flightselected.getArrivalTime()}</td>
                     </tr>
-                    		</c:forEach>
+        	<tr><td> &nbsp;</td> </tr>            
+		</c:forEach>
                     </tbody>
                     </table>
                     <button type="button" class="btn btn-primary" onclick="logout()" id="logout">Print Ticket</button>
