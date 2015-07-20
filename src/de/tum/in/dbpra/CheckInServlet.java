@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import de.tum.in.dbpra.model.bean.ResponseBean;
-import de.tum.in.dbpra.model.dao.SampleDAO;
-import de.tum.in.dbpra.model.dao.SampleDAO.SampleException;
+import de.tum.in.dbpra.model.dao.CheckInDAO;
+import de.tum.in.dbpra.model.dao.CheckInDAO.CheckInException;
 
 @WebServlet("/CheckInServlet")
 public class CheckInServlet extends HttpServlet {
@@ -33,16 +33,17 @@ public class CheckInServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			// set response type
 			response.setContentType("application/json");
 
-		//String ticket_num = request.getParameter("ticket_num");
-			//String lastName = request.getParameter("last_name");
+			String ticket_num = request.getParameter("ticket_num");
+			String lastName = request.getParameter("last_name");
 
 			CharArrayWriterResponse customResponse = new CharArrayWriterResponse(
 					response);
-			SampleDAO dao = new SampleDAO();
-			request.setAttribute("samples", dao.getSamples());
+			
+			
+			CheckInDAO dao = new CheckInDAO();
+			request.setAttribute("samples", dao.getBoardingPass(ticket_num,lastName ));
 			request.getRequestDispatcher("/Partials/boarding-passes.jsp")
 					.forward(request, customResponse);
 
@@ -51,15 +52,14 @@ public class CheckInServlet extends HttpServlet {
 			responseBean.setResponse(customResponse.getOutput());
 
 			Gson gson = new Gson();
-			// convert java object to JSON format,
-			// and returned as JSON formatted string
+
 			String json = gson.toJson(responseBean);
 
 			PrintWriter out = response.getWriter();
 			out.write(json);
 			System.out.println(json);
 
-		} catch (IOException | SQLException | SampleException e) {
+		} catch (IOException | SQLException | CheckInException e) {
 			e.printStackTrace();
 		}
 

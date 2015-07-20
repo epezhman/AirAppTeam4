@@ -7,23 +7,25 @@ import java.sql.SQLException;
 
 import de.tum.in.dbpra.model.bean.PassengerBean;
 
-
 public class PassengerDAO extends AbstractDAO {
 
 	/***
 	 * @brief insert passengers details for flight reservation
 	 * */
-	public PassengerBean createPassenger(String firstName,String lastName, String address, String gender,
-			String nationality, String passengerType, String phoneNumber, String country) throws SQLException {
+	public PassengerBean createPassenger(String firstName, String lastName,
+			String address, String gender, String nationality,
+			String passengerType, String phoneNumber, String country)
+			throws SQLException {
 		StringBuilder query = new StringBuilder()
-		.append("INSERT INTO passenger( first_name, last_name,  ")
-		.append("  address, gender, nationality,passenger_type, phone_number,country) ")
-		.append("  VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		
+				.append("INSERT INTO passenger( first_name, last_name,  ")
+				.append("  address, gender, nationality,passenger_type, phone_number,country) ")
+				.append("  VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
 		PassengerBean passengerBean = null;
 
 		try (Connection connection = getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(query.toString());) {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(query.toString());) {
 			preparedStatement.setString(1, firstName);
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, address);
@@ -43,26 +45,27 @@ public class PassengerDAO extends AbstractDAO {
 			passengerBean.setCountry(country);
 			passengerBean.setPassengerType(passengerType);
 			passengerBean.setPhoneNumber(phoneNumber);
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		return passengerBean;
 	}
 
-	public PassengerBean getPassengerID(PassengerBean passenger) throws SQLException{
-		String query ="Select passenger_id from passenger where first_name=? and last_name=?";
+	public PassengerBean getPassengerID(PassengerBean passenger)
+			throws SQLException {
+		String query = "Select passenger_id from passenger where first_name=? and last_name=?";
 		try (Connection connection = getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(query);) {
 			preparedStatement.setString(1, passenger.getFirstName());
 			preparedStatement.setString(2, passenger.getLastName());
 			try (ResultSet resultSet = preparedStatement.executeQuery();) {
 				if (resultSet.next()) {
-			passenger.setPassengerId(resultSet.getInt(1));
+					passenger.setPassengerId(resultSet.getInt(1));
 				}
-		}
+			}
 		}
 		return passenger;
 	}
 }
-

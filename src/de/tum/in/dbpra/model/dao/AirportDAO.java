@@ -66,8 +66,8 @@ public class AirportDAO extends AbstractDAO {
 	}
 
 	/***
-	 * @brief retrive all registered cities from system for display in flight
-	 *        search autocomplete
+	 * @brief retrieve all registered cities from system for display in flight
+	 *        search auto-complete
 	 * 
 	 * */
 	public List<String> getCitiesForFlightSearch() throws SQLException {
@@ -82,10 +82,7 @@ public class AirportDAO extends AbstractDAO {
 			try (ResultSet resultSet = preparedStatement.executeQuery();) {
 				while (resultSet.next()) {
 					cities.add(resultSet.getString(1));
-				}/*
-				 * else { throw new CustomerNotFoundException(
-				 * "Database found no customer for the given id!"); }
-				 */
+				}
 				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();

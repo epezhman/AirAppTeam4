@@ -197,7 +197,7 @@
 				</div>
 				<div class="col-md-2">
 					<div class="form-group">
-						<label>Nationality </label>
+						<label>Country </label>
 					</div>
 
 				</div>

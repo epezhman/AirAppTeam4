@@ -21,35 +21,39 @@
 		    <c:out value="${error}" />
 		  </c:when>
 		  <c:otherwise>
-		  		  
 		  
-		  	<h3> Check In </h3>
+		  <div class="well well-lg">
+		  	<h3> <span class="glyphicon glyphicon-briefcase"
+							aria-hidden="true"></span> Check In </h3>
 		  
-         	<div class="alert alert-info" >In order to check in and print your boarding passes please enter your ticket number and your last name</div>
+         	<div class="alert alert-info">In order to check in and print your boarding passes please enter your ticket number and your last name</div>
 		           
 			<form class="form-horizontal" id="check-in-form">
 			  <div class="form-group">
 			    <label for="input-ticket-number" class="col-sm-2 control-label">Ticket Number</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="input-ticket-number" placeholder="Ticket Number" required="required">
+			      <input type="text" class="form-control"
+									id="input-ticket-number" placeholder="Ticket Number"
+									required="required">
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="input-last-name" class="col-sm-2 control-label">Last Name</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="input-last-name" placeholder="Last Name" required="required">
+			      <input type="text" class="form-control" id="input-last-name"
+									placeholder="Last Name" required="required">
 			    </div>
 			  </div>			
 			  <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" class="btn btn-default" id="check-in-submit">Check In</button>
+			    <div class="col-sm-offset-10 col-sm-2">
+			      <button type="submit" class="btn btn-primary"
+									id="check-in-submit">Check In</button>
 			    </div>
 			  </div>
 			</form>
-			
-			
+					
 			<div id="print-boarding-pass"></div>
-								           		           		           		       
+		</div>				           		           		           		       
 		  </c:otherwise>
 		</c:choose>
 				

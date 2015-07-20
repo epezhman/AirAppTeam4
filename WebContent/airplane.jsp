@@ -132,7 +132,6 @@
 												document.getElementById(
 														"insertairplane")
 														.reset();
-												//alert("Insertion successful");
 											},
 											error : function(data, status,
 													error) {
