@@ -59,4 +59,12 @@
     <servlet-name>TicketServlet</servlet-name>
     <url-pattern>/ticket</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>ClearanceServlet</servlet-name>
+    <servlet-class>de.tum.in.dbpra.ClearanceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ClearanceServlet</servlet-name>
+    <url-pattern>/clearance</url-pattern>
+  </servlet-mapping>
 </web-app>

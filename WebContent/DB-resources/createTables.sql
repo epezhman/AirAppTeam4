@@ -146,9 +146,9 @@ CREATE TABLE runway (
 CREATE TABLE runway_log (
     runway_log_id serial NOT NULL,
     occupy_date_time timestamp without time zone NOT NULL,
-    flight_controller_id integer NOT NULL,
+    flight_controller_id integer,
     runway_id integer NOT NULL,
-    flight_segment_id integer NOT NULL,
+    flight_segment_id integer,
     primary key (runway_log_id),
     foreign key (flight_segment_id) references flight_segment (flight_segment_id) ON UPDATE NO ACTION ON DELETE NO ACTION,
     foreign key (flight_controller_id) references flight_controller (flight_controller_id) ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -213,4 +213,16 @@ Insert into flight_segment values
 ('11','60','800','2015-07-20 14:10:00','2015-07-20 15:10:00' ,'1', 'MUC', 'TXL', '1', 'LH345', '120'),
 ('12','55','750','2015-08-22 15:10:00','2015-08-22 16:05:00' ,'1', 'TXL', 'MUC', '1', 'LH255', '105');
 
+Insert into runway values
+('1','medium', 'MUC'),
+('2','large', 'MUC'),
+('3','medium', 'MUC');
 
+Insert into runway_log values
+('1','2015-07-20 10:10:00', NULL, '1', NULL),
+('2','2015-07-20 10:20:00', NULL, '2', NULL),
+('3','2015-07-20 11:10:00', NULL, '3', NULL),
+('4','2015-07-20 12:10:00', NULL, '1', NULL),
+('5','2015-07-20 13:30:00', NULL, '1', NULL),
+('6','2015-07-20 14:45:00', NULL, '2', NULL),
+('7','2015-07-20 15:15:00', NULL, '1', NULL);

@@ -3,29 +3,26 @@ package de.tum.in.dbpra;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.tum.in.dbpra.model.bean.AirlineBean;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import de.tum.in.dbpra.model.bean.AirlineBean;
 import de.tum.in.dbpra.model.bean.AirplaneBean;
 import de.tum.in.dbpra.model.bean.AirportBean;
 import de.tum.in.dbpra.model.bean.FlightSegmentBean;
 import de.tum.in.dbpra.model.dao.AirlineDAO;
-
-import de.tum.in.dbpra.model.dao.AirplaneDAO;
 import de.tum.in.dbpra.model.dao.AirportDAO;
 import de.tum.in.dbpra.model.dao.FlightSegmentDAO;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @SuppressWarnings("serial")
 public class FlightSegmentservlet extends HttpServlet {
@@ -59,7 +56,6 @@ public class FlightSegmentservlet extends HttpServlet {
 			AirportDAO airportdao = new AirportDAO();
 
 			AirplaneBean airplane = new AirplaneBean();
-			AirplaneDAO airplanedao = new AirplaneDAO();
 
 			FlightSegmentBean flight_segment = new FlightSegmentBean();
 			FlightSegmentDAO flightsegmentdao = new FlightSegmentDAO();
